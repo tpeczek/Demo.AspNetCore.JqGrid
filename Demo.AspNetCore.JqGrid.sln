@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2D7ED3F6-1DB4-4BA9-8BDD-A48BC7649E0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10A895C5-37D4-4C06-8B2D-0E236B4AAB89}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Demo.AspNetCore.JqGrid", "src\Demo.AspNetCore.JqGrid\Demo.AspNetCore.JqGrid.xproj", "{DD5F6053-45F1-4F32-82C8-510B2250FDE8}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Demo.StartWars", "src\Demo.StartWars\Demo.StartWars.xproj", "{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD5F6053-45F1-4F32-82C8-510B2250FDE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD5F6053-45F1-4F32-82C8-510B2250FDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD5F6053-45F1-4F32-82C8-510B2250FDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD5F6053-45F1-4F32-82C8-510B2250FDE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD5F6053-45F1-4F32-82C8-510B2250FDE8} = {2D7ED3F6-1DB4-4BA9-8BDD-A48BC7649E0C}
+		{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E} = {2D7ED3F6-1DB4-4BA9-8BDD-A48BC7649E0C}
+	EndGlobalSection
+EndGlobal

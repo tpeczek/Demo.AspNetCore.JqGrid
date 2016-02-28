@@ -1,0 +1,38 @@
+﻿@{ ViewBag.Title = "JqGrid in ASP.NET Core - Single Searching"; }
+<table id="jqgStarWarsCharacters" cellpadding="0" cellspacing="0"></table>
+<div id="jqgpStarWarsCharacters" style="text-align:center;"></div>
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var $starWarsCharacters = $('#jqgStarWarsCharacters');
+            $starWarsCharacters.jqGrid({
+                url: '@Url.Action("Characters", "StarWars")',
+                datatype: 'json',
+                mtype: 'POST',
+                cmTemplate: { align: 'center' },
+                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color' ],
+                colModel: [
+                            { name: 'Name', searchoptions: { sopt: ['eq', 'ne', 'bw', 'bn', 'ew', 'en', 'cn', 'nc'] } },
+                            { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter, stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: { 1: 'Female', 2: 'Male', 3: 'Hermaphrodite' } } },
+                            { name: 'Height', search: false },
+                            { name: 'Weight', search: false },
+                            { name: 'BirthYear', search: false },
+                            { name: 'SkinColor', sortable: false, formatter: demo.jqGrid.character.skinColorFormatter, search: false },
+                            { name: 'HairColor', sortable: false, formatter: demo.jqGrid.character.hairColorFormatter, search: false },
+                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter, search: false }
+                          ],
+                caption: 'StarWars Characters',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: { repeatitems: false, id: 'Id' },
+                pager: $('#jqgpStarWarsCharacters'),
+                rowNum: 10,
+                sortname: 'Id',
+                sortorder: 'asc',
+                viewrecords: true,
+                height: '100%'
+            });
+            $starWarsCharacters.jqGrid('navGrid', '#jqgpStarWarsCharacters', { edit: false, add: false, del: false });
+        });
+    </script>
+}

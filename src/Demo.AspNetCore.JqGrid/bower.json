@@ -1,0 +1,9 @@
+{
+	"name": "ASP.NET",
+	"private": true,
+  "dependencies": {
+    "jquery": "2.2.1",
+    "jquery-ui": "1.11.4",
+    "jqgrid": "5.0.2"
+  }
+}

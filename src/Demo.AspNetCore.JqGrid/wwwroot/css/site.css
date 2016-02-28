@@ -1,0 +1,14 @@
+﻿.ui-menu
+{
+    width: 300px;
+}
+
+footer
+{
+    width: auto;
+    margin: 0 auto;
+    color: #333;
+    font-family: calibri, arial, helvetica, san-serif;
+    font-size: 11px;
+    text-align: center;
+}

@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/lib/jqgrid/css/ui.jqgrid.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <ul id="menu">
+            <li>
+                Classic
+                <ul>
+                    <li><a asp-controller="JavaScript" asp-action="Basics">Paging, Sorting & Formatting</a></li>
+                    <li><a asp-controller="JavaScript" asp-action="DynamicScrolling">Dynamic Scrolling</a></li>
+                    <li><a asp-controller="JavaScript" asp-action="Grouping">Grouping</a></li>
+                    <li><a asp-controller="JavaScript" asp-action="SingleSearching">Single Searching</a></li>
+                </ul>
+            </li>
+            <li>
+                Strongly Typed Helper
+                <ul>
+
+                </ul>
+            </li>
+        </ul>
+        <hr />
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    <footer>
+        <hr />
+        Copyright &copy; 2016 Tomasz Pęczek
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/lib/jqgrid/js/i18n/grid.locale-en.js"></script>
+    <script src="~/lib/jqgrid/js/jquery.jqGrid.min.js"></script>
+    <script src="~/js/site.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

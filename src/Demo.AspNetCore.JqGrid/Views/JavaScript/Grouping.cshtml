@@ -1,0 +1,43 @@
+﻿@{ ViewBag.Title = "JqGrid in ASP.NET Core - Paging, Sorting & Formatting"; }
+<table id="jqgStarWarsCharacters" cellpadding="0" cellspacing="0"></table>
+<div id="jqgpStarWarsCharacters" style="text-align:center;"></div>
+@section scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('#jqgStarWarsCharacters').jqGrid({
+                url: '@Url.Action("Characters", "StarWars")',
+                datatype: 'json',
+                mtype: 'POST',
+                cmTemplate: { align: 'center' },
+                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color' ],
+                colModel: [
+                            { name: 'Name' },
+                            { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter },
+                            { name: 'Height', summaryType: 'avg' },
+                            { name: 'Weight', summaryType: 'avg' },
+                            { name: 'BirthYear' },
+                            { name: 'SkinColor', sortable: false, formatter: demo.jqGrid.character.skinColorFormatter },
+                            { name: 'HairColor', sortable: false, formatter: demo.jqGrid.character.hairColorFormatter },
+                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter }
+                          ],
+                caption: 'StarWars Characters',
+                grouping: true,
+                groupingView: {
+                    groupField: ['Gender'],
+                    groupDataSorted: true,
+                    groupColumnShow: [false],
+                    groupSummary: [true]
+                },
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: { repeatitems: false, id: 'Id' },
+                pager: $('#jqgpStarWarsCharacters'),
+                rowNum: 100,
+                sortname: 'Id',
+                sortorder: 'asc',
+                viewrecords: true,
+                height: '100%'
+            });
+        });
+    </script>
+}
