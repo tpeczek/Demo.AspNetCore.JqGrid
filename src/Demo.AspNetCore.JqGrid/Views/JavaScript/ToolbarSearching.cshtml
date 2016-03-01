@@ -1,4 +1,4 @@
-﻿@{ ViewBag.Title = "JqGrid in ASP.NET Core - Single Searching"; }
+﻿@{ ViewBag.Title = "JqGrid in ASP.NET Core - Toolbar Searching"; }
 <table id="jqgStarWarsCharacters" cellpadding="0" cellspacing="0"></table>
 <div id="jqgpStarWarsCharacters" style="text-align:center;"></div>
 @section scripts {
@@ -12,8 +12,8 @@
                 cmTemplate: { align: 'center' },
                 colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color' ],
                 colModel: [
-                            { name: 'Name', searchoptions: { sopt: ['eq', 'ne', 'bw', 'bn', 'ew', 'en', 'cn', 'nc'] } },
-                            { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter, stype: 'select', searchoptions: { sopt: ['eq', 'ne', 'nu', 'nn'], value: { 1: 'Female', 2: 'Male', 3: 'Hermaphrodite' } } },
+                            { name: 'Name', searchoptions: { sopt: ['cn'] } },
+                            { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter, stype: 'select', searchoptions: { sopt: ['eq'], value: { '': '', 1: 'Female', 2: 'Male', 3: 'Hermaphrodite' } } },
                             { name: 'Height', search: false },
                             { name: 'Weight', search: false },
                             { name: 'BirthYear', search: false },
@@ -32,7 +32,7 @@
                 viewrecords: true,
                 height: '100%'
             });
-            $starWarsCharacters.jqGrid('navGrid', '#jqgpStarWarsCharacters', { edit: false, add: false, del: false });
+            $starWarsCharacters.jqGrid('filterToolbar', { stringResult: true });
         });
     </script>
 }

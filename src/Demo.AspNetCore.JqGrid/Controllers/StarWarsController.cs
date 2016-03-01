@@ -8,6 +8,7 @@ using System.Linq;
 using Lib.AspNetCore.Mvc.JqGrid.Core.Request;
 using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Demo.AspNetCore.JqGrid.Controllers
 {
@@ -51,82 +52,130 @@ namespace Demo.AspNetCore.JqGrid.Controllers
         #region Methods
         private IQueryable<Character> FilterCharacters(IQueryable<Character> charactersQueryable, JqGridRequest request)
         {
+            Func<Character, bool> filterPredicate = null;
+
             if (request.Searching)
             {
                 if (request.SearchingFilter != null)
                 {
-                    charactersQueryable = FilterBySingleCriteria(charactersQueryable, request.SearchingFilter);
+                    filterPredicate = GetSearchingFilterPredicate(request.SearchingFilter);
+                }
+                else if (request.SearchingFilters != null)
+                {
+                    filterPredicate = GetSearchingFiltersPredicate(request.SearchingFilters);
                 }
             }
 
-            return charactersQueryable;
+            return (filterPredicate == null) ? charactersQueryable : charactersQueryable.Where(character => filterPredicate(character));
         }
 
-        private IQueryable<Character> FilterBySingleCriteria(IQueryable<Character> charactersQueryable, JqGridRequestSearchingFilter searchingFilter)
+        private Func<Character, bool> GetSearchingFiltersPredicate(JqGridRequestSearchingFilters searchingFilters)
         {
+            Func<Character, bool> searchingFiltersPredicate = null;
+            IList<Func<Character, bool>> searchingFilterPredicates = new List<Func<Character, bool>>();
+
+            foreach (JqGridRequestSearchingFilter searchingFilter in searchingFilters.Filters)
+            {
+                searchingFilterPredicates.Add(GetSearchingFilterPredicate(searchingFilter));
+            }
+
+            foreach (JqGridRequestSearchingFilters searchingFilterGroup in searchingFilters.Groups)
+            {
+                searchingFilterPredicates.Add(GetSearchingFiltersPredicate(searchingFilterGroup));
+            }
+
+            if (searchingFilterPredicates.Any())
+            {
+                if (searchingFilters.GroupingOperator == JqGridSearchGroupingOperators.And)
+                {
+                    searchingFiltersPredicate = (character => searchingFilterPredicates.All(searchingFilterPredicate => searchingFilterPredicate(character)));
+                }
+                else if (searchingFilters.GroupingOperator == JqGridSearchGroupingOperators.Or)
+                {
+                    searchingFiltersPredicate = (character => searchingFilterPredicates.Any(searchingFilterPredicate => searchingFilterPredicate(character)));
+                }
+            }
+
+            return searchingFiltersPredicate;
+        }
+
+        private Func<Character, bool> GetSearchingFilterPredicate(JqGridRequestSearchingFilter searchingFilter)
+        {
+            Func<Character, bool> searchingFilterPredicate = null;
+
             switch (searchingFilter.SearchingName.ToLowerInvariant())
             {
                 case "name":
-                    charactersQueryable = FilterByName(charactersQueryable, searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
+                    searchingFilterPredicate = GetNamePredicate(searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
                     break;
                 case "gender":
-                    charactersQueryable = FilterByGender(charactersQueryable, searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
+                    searchingFilterPredicate = GetGenderPredicate(searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
                     break;
             }
 
-            return charactersQueryable;
+            return searchingFilterPredicate;
         }
 
-        private IQueryable<Character> FilterByName(IQueryable<Character> charactersQueryable, JqGridSearchOperators searchingOperator, string searchingValue)
+        private Func<Character, bool> GetNamePredicate(JqGridSearchOperators searchingOperator, string searchingValue)
         {
+            Func<Character, bool> namePredicate = null;
+
             switch (searchingOperator)
             {
                 case JqGridSearchOperators.Eq:
-                    charactersQueryable = charactersQueryable.Where(character => String.Compare(character.Name, searchingValue, StringComparison.InvariantCultureIgnoreCase) == 0);
+                    namePredicate = (character => String.Compare(character.Name, searchingValue, StringComparison.InvariantCultureIgnoreCase) == 0);
                     break;
                 case JqGridSearchOperators.Ne:
-                    charactersQueryable = charactersQueryable.Where(character => String.Compare(character.Name, searchingValue, StringComparison.InvariantCultureIgnoreCase) != 0);
+                    namePredicate = (character => String.Compare(character.Name, searchingValue, StringComparison.InvariantCultureIgnoreCase) != 0);
                     break;
                 case JqGridSearchOperators.Bw:
-                    charactersQueryable = charactersQueryable.Where(character => character.Name.StartsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
+                    namePredicate = (character => character.Name.StartsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
                     break;
                 case JqGridSearchOperators.Bn:
-                    charactersQueryable = charactersQueryable.Where(character => !character.Name.StartsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
+                    namePredicate = (character => !character.Name.StartsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
                     break;
                 case JqGridSearchOperators.Ew:
-                    charactersQueryable = charactersQueryable.Where(character => character.Name.EndsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
+                    namePredicate = (character => character.Name.EndsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
                     break;
                 case JqGridSearchOperators.En:
-                    charactersQueryable = charactersQueryable.Where(character => !character.Name.EndsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
+                    namePredicate = (character => !character.Name.EndsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
                     break;
                 case JqGridSearchOperators.Cn:
-                    charactersQueryable = charactersQueryable.Where(character => character.Name.IndexOf(searchingValue, StringComparison.InvariantCultureIgnoreCase) >= 0);
+                    namePredicate = (character => character.Name.IndexOf(searchingValue, StringComparison.InvariantCultureIgnoreCase) >= 0);
                     break;
                 case JqGridSearchOperators.Nc:
-                    charactersQueryable = charactersQueryable.Where(character => character.Name.IndexOf(searchingValue, StringComparison.InvariantCultureIgnoreCase) == -1);
+                    namePredicate = (character => character.Name.IndexOf(searchingValue, StringComparison.InvariantCultureIgnoreCase) == -1);
                     break;
             }
 
-            return charactersQueryable;
+            return namePredicate;
         }
 
-        private IQueryable<Character> FilterByGender(IQueryable<Character> charactersQueryable, JqGridSearchOperators searchingOperator, string searchingValue)
+        private Func<Character, bool> GetGenderPredicate(JqGridSearchOperators searchingOperator, string searchingValue)
         {
+            Func<Character, bool> genderPredicate = null;
+
             Genders characterGender = Genders.Hermaphrodite;
-            if (Enum.TryParse(searchingValue, true, out characterGender))
+            if (Enum.TryParse(searchingValue, true, out characterGender) || ((searchingOperator & JqGridSearchOperators.NullOperators) != 0))
             {
                 switch (searchingOperator)
                 {
                     case JqGridSearchOperators.Eq:
-                        charactersQueryable = charactersQueryable.Where(character => character.Gender == characterGender);
+                        genderPredicate = (character => character.Gender == characterGender);
                         break;
                     case JqGridSearchOperators.Ne:
-                        charactersQueryable = charactersQueryable.Where(character => character.Gender != characterGender);
+                        genderPredicate = (character => character.Gender != characterGender);
+                        break;
+                    case JqGridSearchOperators.Nu:
+                        genderPredicate = (character => !character.Gender.HasValue);
+                        break;
+                    case JqGridSearchOperators.Nn:
+                        genderPredicate = (character => character.Gender.HasValue);
                         break;
                 }
             }
 
-            return charactersQueryable;
+            return genderPredicate;
         }
 
         private IQueryable<Character> SortCharacters(IQueryable<Character> charactersQueryable, string sortingDefition, JqGridSortingOrders sortingOrder)

@@ -24,6 +24,16 @@ namespace Demo.AspNetCore.JqGrid.Controllers
         {
             return View();
         }
+
+        public IActionResult AdvancedSearching()
+        {
+            return View();
+        }
+
+        public IActionResult ToolbarSearching()
+        {
+            return View();
+        }
         #endregion
     }
 }
