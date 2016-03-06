@@ -129,6 +129,35 @@
                     }
 
                     return eyeColorDescription;
+                },
+                eyeColorUnFormatter: function (cellvalue, options, rowObject) {
+                    var eyeColor = '';
+
+                    switch (eyeColorValue) {
+                        case 'Blue':
+                            eyeColor = 1;
+                            break;
+                        case 'Brown':
+                            eyeColor = 2;
+                            break;
+                        case 'Yellow':
+                            eyeColor = 3;
+                            break;
+                        case 'Hazel':
+                            eyeColor = 4;
+                            break;
+                        case 'Red':
+                            eyeColor = 5;
+                            break;
+                        case 'Black':
+                            eyeColor = 6;
+                            break;
+                        case 'Orange':
+                            eyeColor = 7;
+                            break;
+                    }
+
+                    return eyeColor;
                 }
             }
         }

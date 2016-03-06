@@ -1,0 +1,39 @@
+﻿@{ ViewBag.Title = "JqGrid in ASP.NET Core - Cell Editing"; }
+<table id="jqgStarWarsCharacters" cellpadding="0" cellspacing="0"></table>
+<div id="jqgpStarWarsCharacters" style="text-align:center;"></div>
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var $starWarsCharacters = $('#jqgStarWarsCharacters');
+            $starWarsCharacters.jqGrid({
+                url: '@Url.Action("Characters", "StarWars")',
+                datatype: 'json',
+                mtype: 'POST',
+                cellEdit: true,
+                cellurl: '@Url.Action("UpdateCharacterProperty", "StarWars")',
+                cmTemplate: { align: 'center' },
+                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color' ],
+                colModel: [
+                            { name: 'Name', editable: true, editrules: { required: true } },
+                            { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter, editable: false },
+                            { name: 'Height', editable: true, editrules: { required: true, integer: true, minValue: 0 } },
+                            { name: 'Weight', editable: true, editrules: { integer: true, minValue: 0 } },
+                            { name: 'BirthYear', editable: true, editrules: { required: true } },
+                            { name: 'SkinColor', sortable: false, formatter: demo.jqGrid.character.skinColorFormatter, editable: false },
+                            { name: 'HairColor', sortable: false, formatter: demo.jqGrid.character.hairColorFormatter, editable: false },
+                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter, editable: false }
+                          ],
+                caption: 'StarWars Characters',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: { repeatitems: false, id: 'Id' },
+                pager: $('#jqgpStarWarsCharacters'),
+                rowNum: 10,
+                sortname: 'Id',
+                sortorder: 'asc',
+                viewrecords: true,
+                height: '100%'
+            });
+        });
+    </script>
+}
