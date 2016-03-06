@@ -3,8 +3,8 @@
     return {
         jqGrid: {
             character: {
-                genderFormatter: function (cellvalue, options, rowObject) {
-                    var genderDescription = '';
+                genderFormatter: function(cellvalue, options, rowObject) {
+                    var genderDescription = cellvalue;
 
                     if (!isNaN(cellvalue)) {
                         var genderValue = parseInt(cellvalue);
@@ -20,13 +20,16 @@
                             case 3:
                                 genderDescription = 'Hermaphrodite';
                                 break;
+                            default:
+                                genderDescription = '';
+                                break;
                         }
                     }
 
                     return genderDescription;
                 },
-                skinColorFormatter: function (cellvalue, options, rowObject) {
-                    var skinColorDescription = '';
+                skinColorFormatter: function(cellvalue, options, rowObject) {
+                    var skinColorDescription = cellvalue;
 
                     if (!isNaN(cellvalue)) {
                         var skinColorValue = parseInt(cellvalue);
@@ -59,13 +62,16 @@
                             case 9:
                                 skinColorDescription = 'Green-Tan';
                                 break;
+                            default:
+                                skinColorDescription = '';
+                                break;
                         }
                     }
 
                     return skinColorDescription;
                 },
-                hairColorFormatter: function (cellvalue, options, rowObject) {
-                    var hairColorDescription = '';
+                hairColorFormatter: function(cellvalue, options, rowObject) {
+                    var hairColorDescription = cellvalue;
 
                     if (!isNaN(cellvalue)) {
                         var hairColorValue = parseInt(cellvalue);
@@ -92,13 +98,16 @@
                             case 6:
                                 hairColorDescription = 'White';
                                 break;
+                            case 6:
+                                hairColorDescription = '';
+                                break;
                         }
                     }
 
                     return hairColorDescription;
                 },
-                eyeColorFormatter: function (cellvalue, options, rowObject) {
-                    var eyeColorDescription = '';
+                eyeColorFormatter: function(cellvalue, options, rowObject) {
+                    var eyeColorDescription = cellvalue;
 
                     if (!isNaN(cellvalue)) {
                         var eyeColorValue = parseInt(cellvalue);
@@ -125,39 +134,25 @@
                             case 7:
                                 eyeColorDescription = 'Orange';
                                 break;
+                            default:
+                                eyeColorDescription = '';
+                                break;
                         }
                     }
 
                     return eyeColorDescription;
-                },
-                eyeColorUnFormatter: function (cellvalue, options, rowObject) {
-                    var eyeColor = '';
+                }
+            },
+            onJqGridInlineSuccessSaveRow: function(e, jqXHR, rowId, options) {
+                var response = JSON.parse(jqXHR.responseText);
 
-                    switch (eyeColorValue) {
-                        case 'Blue':
-                            eyeColor = 1;
-                            break;
-                        case 'Brown':
-                            eyeColor = 2;
-                            break;
-                        case 'Yellow':
-                            eyeColor = 3;
-                            break;
-                        case 'Hazel':
-                            eyeColor = 4;
-                            break;
-                        case 'Red':
-                            eyeColor = 5;
-                            break;
-                        case 'Black':
-                            eyeColor = 6;
-                            break;
-                        case 'Orange':
-                            eyeColor = 7;
-                            break;
-                    }
+                return [response.Status, null];
+            },
+            onJqGridInlineAfterSaveRow: function(e, rowId, jqXHR, data, otions) {
+                var response = JSON.parse(jqXHR.responseText);
 
-                    return eyeColor;
+                if (response.Status) {
+                    $('#' + rowId).attr('id', response.CharacterId);
                 }
             }
         }

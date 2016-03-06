@@ -50,9 +50,42 @@ namespace Demo.AspNetCore.JqGrid.Controllers
         }
 
         [AcceptVerbs("POST")]
+        public IActionResult UpsertCharacter(Character character)
+        {
+            bool status = false;
+
+            try
+            {
+                Character originalCharacter = StarWarsContext.Characters.FirstOrDefault(c => c.Id == character.Id);
+                if (originalCharacter == null)
+                {
+                    character.Id = StarWarsContext.Characters.Max(c => c.Id) + 1;
+                    StarWarsContext.Characters.Add(character);
+                }
+                else
+                {
+                    originalCharacter.Name = character.Name;
+                    originalCharacter.Gender = character.Gender;
+                    originalCharacter.Height = character.Height;
+                    originalCharacter.Weight = character.Weight;
+                    originalCharacter.BirthYear = character.BirthYear;
+                    originalCharacter.SkinColor = character.SkinColor;
+                    originalCharacter.HairColor = character.HairColor;
+                    originalCharacter.EyeColor = character.EyeColor;
+                }
+
+                status = true;
+            }
+            catch
+            { }
+
+            return Json(new { Status = status, CharacterId = character.Id });
+        }
+
+        [AcceptVerbs("POST")]
         public IActionResult UpdateCharacterProperty([ModelBinder(BinderType = typeof(CharacterCellUpdateRequestModelBinder))]JqGridCellUpdateRequest characterProperty)
         {
-            bool success = false;
+            bool status = false;
 
             try
             {
@@ -78,14 +111,35 @@ namespace Demo.AspNetCore.JqGrid.Controllers
                                 break;
                         }
 
-                        success = true;
+                        status = true;
                     }
                 }
             }
             catch
             { }
 
-            return Json(success);
+            return Json(status);
+        }
+
+        [AcceptVerbs("POST")]
+        public IActionResult DeleteCharacter(int id)
+        {
+            bool status = false;
+
+            try
+            {
+                Character character = StarWarsContext.Characters.FirstOrDefault(c => c.Id == id);
+                if (character != null)
+                {
+                    StarWarsContext.Characters.Remove(character);
+
+                    status = true;
+                }
+            }
+            catch
+            { }
+
+            return Json(status);
         }
         #endregion
 
