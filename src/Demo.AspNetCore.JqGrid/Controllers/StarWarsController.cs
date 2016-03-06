@@ -9,6 +9,7 @@ using Lib.AspNetCore.Mvc.JqGrid.Core.Request;
 using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums;
 using System.Globalization;
 using System.Collections.Generic;
+using Demo.AspNetCore.JqGrid.Model.ModelBinders;
 
 namespace Demo.AspNetCore.JqGrid.Controllers
 {
@@ -46,6 +47,45 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             response.Reader.RepeatItems = false;
 
             return new JqGridJsonResult(response);
+        }
+
+        [AcceptVerbs("POST")]
+        public IActionResult UpdateCharacterProperty([ModelBinder(BinderType = typeof(CharacterCellUpdateRequestModelBinder))]JqGridCellUpdateRequest characterProperty)
+        {
+            bool success = false;
+
+            try
+            {
+                int characterId;
+                if ((characterProperty != null) && Int32.TryParse(characterProperty.Id, out characterId))
+                {
+                    Character character = StarWarsContext.Characters.FirstOrDefault(c => c.Id == characterId);
+                    if (character != null)
+                    {
+                        switch (characterProperty.CellName)
+                        {
+                            case "Name":
+                                character.Name = (string)characterProperty.CellValue;
+                                break;
+                            case "Height":
+                                character.Height = (int)characterProperty.CellValue;
+                                break;
+                            case "Weight":
+                                character.Weight = (int?)characterProperty.CellValue;
+                                break;
+                            case "BirthYear":
+                                character.BirthYear = (string)characterProperty.CellValue;
+                                break;
+                        }
+
+                        success = true;
+                    }
+                }
+            }
+            catch
+            { }
+
+            return Json(success);
         }
         #endregion
 

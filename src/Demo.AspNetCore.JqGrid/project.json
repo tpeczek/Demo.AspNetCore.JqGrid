@@ -6,6 +6,7 @@
 
   "dependencies": {
     "Demo.StartWars": "1.0.0-*",
+    "Lib.AspNetCore.Mvc.JqGrid.Core": "1.0.0-alpha-1",
     "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
     "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
     "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",

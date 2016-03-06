@@ -34,6 +34,11 @@ namespace Demo.AspNetCore.JqGrid.Controllers
         {
             return View();
         }
+
+        public IActionResult CellEditing()
+        {
+            return View();
+        }
         #endregion
     }
 }
