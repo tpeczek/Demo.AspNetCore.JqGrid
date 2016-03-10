@@ -1,0 +1,42 @@
+﻿@{ ViewBag.Title = "JqGrid in ASP.NET Core - Inline Editing"; }
+<table id="jqgStarWarsCharacters" cellpadding="0" cellspacing="0"></table>
+<div id="jqgpStarWarsCharacters" style="text-align:center;"></div>
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var $starWarsCharacters = $('#jqgStarWarsCharacters');
+            $starWarsCharacters.jqGrid({
+                url: '@Url.Action("Characters", "StarWars")',
+                datatype: 'json',
+                mtype: 'POST',
+                cmTemplate: { align: 'center' },
+                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color' ],
+                colModel: [
+                            { name: 'Name', editable: true, editrules: { required: true } },
+                            { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter, editable: true, edittype: 'select', editoptions: { value: { 1: 'Female', 2: 'Male', 3: 'Hermaphrodite' } } },
+                            { name: 'Height', editable: true, editrules: { required: true, integer: true, minValue: 0 } },
+                            { name: 'Weight', editable: true, editrules: { integer: true, minValue: 0 } },
+                            { name: 'BirthYear', editable: true, editrules: { required: true } },
+                            { name: 'SkinColor', sortable: false, formatter: demo.jqGrid.character.skinColorFormatter, editable: true, edittype: 'select', edittype: 'select', editoptions: { value: { 1: 'Light', 2: 'Fair', 3: 'Pale', 4: 'White', 5: 'Gold', 6: 'Blue', 7: 'Red', 8: 'Green', 9: 'Green-Tan' } } },
+                            { name: 'HairColor', sortable: false, formatter: demo.jqGrid.character.hairColorFormatter, editable: true, edittype: 'select', editoptions: { value: { 0: 'None', 1: 'Blue', 2: 'Brown', 3: 'Black', 4: 'Auburn', 5: 'Grey', 6: 'White' } } },
+                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter, editable: true, edittype: 'select', editoptions: { value: { 1: 'Blue', 2: 'Brown', 3: 'Yellow', 4: 'Hazel', 5: 'Red', 6: 'Black', 7: 'Orange' } }, editrules: { required: true } }
+                          ],
+                caption: 'StarWars Characters',
+                footerrow: true,
+                userDataOnFooter: true,
+                jsonReader: { repeatitems: false, id: 'Id' },
+                pager: $('#jqgpStarWarsCharacters'),
+                rowNum: 10,
+                sortname: 'Id',
+                sortorder: 'asc',
+                viewrecords: true,
+                height: '100%'
+            })
+            .jqGrid('navGrid', '#jqgpStarWarsCharacters',
+                { add: true, del: true, edit: true, search: false },
+                { url: '@Url.Action("UpsertCharacter", "StarWars")' },
+                { url: '@Url.Action("UpsertCharacter", "StarWars")' },
+                { url: '@Url.Action("DeleteCharacter", "StarWars")' });
+        });
+    </script>
+}
