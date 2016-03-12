@@ -1,0 +1,42 @@
+﻿@{ ViewBag.Title = "JqGrid in ASP.NET Core - Subgrid"; }
+<table id="jqgStarWarsPlanets" cellpadding="0" cellspacing="0"></table>
+<div id="jqgpStarWarsPlanets" style="text-align:center;"></div>
+@section scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('#jqgStarWarsPlanets').jqGrid({
+                url: '@Url.Action("Planets", "StarWars")',
+                datatype: 'json',
+                mtype: 'POST',
+                cmTemplate: { align: 'center' },
+                colNames: [ 'Name', 'Diameter', 'Rotation Period', 'Orbital Period', 'Gravity', 'Climate', 'Terrain', 'Population' ],
+                colModel: [
+                            { name: 'Name' },
+                            { name: 'Diameter', formatter: demo.jqGrid.nullAsUnknownFormatter },
+                            { name: 'RotationPeriod', formatter: demo.jqGrid.nullAsUnknownFormatter },
+                            { name: 'OrbitalPeriod', formatter: demo.jqGrid.nullAsUnknownFormatter },
+                            { name: 'Gravity', formatter: demo.jqGrid.nullAsUnknownFormatter },
+                            { name: 'Climate', sortable: false, formatter: demo.jqGrid.planet.climateFormatter },
+                            { name: 'Terrain', sortable: false, formatter: demo.jqGrid.planet.terrainFormatter },
+                            { name: 'Population', formatter: demo.jqGrid.nullAsUnknownFormatter }
+                          ],
+                caption: 'StarWars Planets',
+                jsonReader: { repeatitems: false, id: 'Id', subgrid: { repeatitems: false } },
+                pager: $('#jqgpStarWarsPlanets'),
+                rowNum: 10,
+                sortname: 'Id',
+                sortorder: 'asc',
+                viewrecords: true,
+                height: '100%',
+                subGrid: true,
+                subGridModel: [{
+                    name: [ 'Name', 'Birth Year' ],
+                    width: [ 200, 100 ],
+                    align: [ 'center', 'center' ],
+                    mapping: [ 'Name', 'BirthYear' ]
+                }],
+                subGridUrl: '@Url.Action("PlanetCharacters", "StarWars")'
+            });
+        });
+    </script>
+}

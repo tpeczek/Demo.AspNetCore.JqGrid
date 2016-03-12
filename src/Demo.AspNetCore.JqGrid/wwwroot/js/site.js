@@ -1,4 +1,35 @@
-﻿var demo = (function() { 
+﻿var demo = (function () {
+    var terrainFlags = [
+        { flag: 1, description: 'Desert' },
+        { flag: 2, description: 'Plains' },
+        { flag: 4, description: 'Grass' },
+        { flag: 8, description: 'Grasslands' },
+        { flag: 16, description: 'Grassy Hills' },
+        { flag: 32, description: 'Hills' },
+        { flag: 64, description: 'Swamps' },
+        { flag: 128, description: 'Bogs' },
+        { flag: 256, description: 'Forests' },
+        { flag: 512, description: 'Jungle' },
+        { flag: 1024, description: 'Lakes' },
+        { flag: 2048, description: 'Rivers' },
+        { flag: 4096, description: 'Oceans' },
+        { flag: 8192, description: 'Rocky Islands' },
+        { flag: 16384, description: 'Mountains' },
+        { flag: 32768, description: 'Cityscape' },
+        { flag: 65536, description: 'Urban' }
+    ];
+
+    var appendFlagDescription = function (value, flag, valueDescription, flagDescription) {
+        if ((value & flag) !== 0) {
+            if (valueDescription !== '') {
+                valueDescription += ', ';
+            }
+
+            valueDescription += flagDescription;
+        }
+
+        return valueDescription;
+    };
 
     return {
         jqGrid: {
@@ -142,6 +173,59 @@
 
                     return eyeColorDescription;
                 }
+            },
+            planet: {
+                climateFormatter: function (cellvalue, options, rowObject) {
+                    var climateDescription = cellvalue;
+
+                    if (!isNaN(cellvalue)) {
+                        var climateValue = parseInt(cellvalue);
+
+                        switch (climateValue) {
+                            case 1:
+                                climateDescription = 'Arid';
+                                break;
+                            case 2:
+                                climateDescription = 'Temperate';
+                                break;
+                            case 3:
+                                climateDescription = 'Tropical';
+                                break;
+                            case 4:
+                                climateDescription = 'Hot';
+                                break;
+                            case 5:
+                                climateDescription = 'Polluted';
+                                break;
+                            default:
+                                climateDescription = '';
+                                break;
+                        }
+                    }
+
+                    return climateDescription;
+                },
+                terrainFormatter: function (cellvalue, options, rowObject) {
+                    var terrainDescription = cellvalue;
+
+                    if (!isNaN(cellvalue)) {
+                        terrainDescription = '';
+                        var terrainValue = parseInt(cellvalue);
+
+                        for (var i = 0; i < terrainFlags.length; i++) {
+                            terrainDescription = appendFlagDescription(terrainValue, terrainFlags[i].flag, terrainDescription, terrainFlags[i].description);
+                        }
+                    }
+
+                    return terrainDescription;
+                }
+            },
+            nullAsUnknownFormatter: function (cellvalue, options, rowObject) {
+                if (cellvalue === null) {
+                    cellvalue = 'Unknown';
+                }
+
+                return cellvalue;
             },
             onJqGridInlineSuccessSaveRow: function(e, jqXHR, rowId, options) {
                 var response = JSON.parse(jqXHR.responseText);

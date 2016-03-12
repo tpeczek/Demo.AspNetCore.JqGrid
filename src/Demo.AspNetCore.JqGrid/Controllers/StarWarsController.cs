@@ -141,6 +141,51 @@ namespace Demo.AspNetCore.JqGrid.Controllers
 
             return Json(status);
         }
+
+        [AcceptVerbs("POST")]
+        public IActionResult Planets(JqGridRequest request)
+        {
+            IQueryable<Planet> planetsQueryable = StarWarsContext.Planets.AsQueryable();
+
+            int totalRecords = planetsQueryable.Count();
+
+            JqGridResponse response = new JqGridResponse()
+            {
+                TotalPagesCount = (int)Math.Ceiling((float)totalRecords / (float)request.RecordsCount),
+                PageIndex = request.PageIndex,
+                TotalRecordsCount = totalRecords
+            };
+
+            planetsQueryable = SortPlanets(planetsQueryable, request.SortingName, request.SortingOrder);
+
+            foreach (Planet planet in planetsQueryable.Skip(request.PageIndex * request.RecordsCount).Take(request.PagesCount * request.RecordsCount))
+            {
+                response.Records.Add(new JqGridRecord(Convert.ToString(planet.Id), planet));
+            }
+
+            response.Reader.RepeatItems = false;
+
+            return new JqGridJsonResult(response);
+        }
+
+        [AcceptVerbs("POST")]
+        public ActionResult PlanetCharacters(int id)
+        {
+            JqGridResponse response = new JqGridResponse(true);
+
+            foreach (Character character in StarWarsContext.Characters.Where(c => c.HomeworldId == id))
+            {
+                response.Records.Add(new JqGridRecord(null, new
+                {
+                    character.Name,
+                    character.BirthYear
+                }));
+            }
+
+            response.Reader.SubgridReader.RepeatItems = false;
+
+            return new JqGridJsonResult(response);
+        }
         #endregion
 
         #region Methods
@@ -152,30 +197,30 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             {
                 if (request.SearchingFilter != null)
                 {
-                    filterPredicate = GetSearchingFilterPredicate(request.SearchingFilter);
+                    filterPredicate = GetCharacterSearchingFilterPredicate(request.SearchingFilter);
                 }
                 else if (request.SearchingFilters != null)
                 {
-                    filterPredicate = GetSearchingFiltersPredicate(request.SearchingFilters);
+                    filterPredicate = GetCharacterSearchingFiltersPredicate(request.SearchingFilters);
                 }
             }
 
             return (filterPredicate == null) ? charactersQueryable : charactersQueryable.Where(character => filterPredicate(character));
         }
 
-        private Func<Character, bool> GetSearchingFiltersPredicate(JqGridRequestSearchingFilters searchingFilters)
+        private Func<Character, bool> GetCharacterSearchingFiltersPredicate(JqGridRequestSearchingFilters searchingFilters)
         {
             Func<Character, bool> searchingFiltersPredicate = null;
             IList<Func<Character, bool>> searchingFilterPredicates = new List<Func<Character, bool>>();
 
             foreach (JqGridRequestSearchingFilter searchingFilter in searchingFilters.Filters)
             {
-                searchingFilterPredicates.Add(GetSearchingFilterPredicate(searchingFilter));
+                searchingFilterPredicates.Add(GetCharacterSearchingFilterPredicate(searchingFilter));
             }
 
             foreach (JqGridRequestSearchingFilters searchingFilterGroup in searchingFilters.Groups)
             {
-                searchingFilterPredicates.Add(GetSearchingFiltersPredicate(searchingFilterGroup));
+                searchingFilterPredicates.Add(GetCharacterSearchingFiltersPredicate(searchingFilterGroup));
             }
 
             if (searchingFilterPredicates.Any())
@@ -193,24 +238,24 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             return searchingFiltersPredicate;
         }
 
-        private Func<Character, bool> GetSearchingFilterPredicate(JqGridRequestSearchingFilter searchingFilter)
+        private Func<Character, bool> GetCharacterSearchingFilterPredicate(JqGridRequestSearchingFilter searchingFilter)
         {
             Func<Character, bool> searchingFilterPredicate = null;
 
             switch (searchingFilter.SearchingName.ToLowerInvariant())
             {
                 case "name":
-                    searchingFilterPredicate = GetNamePredicate(searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
+                    searchingFilterPredicate = GetCharacterNamePredicate(searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
                     break;
                 case "gender":
-                    searchingFilterPredicate = GetGenderPredicate(searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
+                    searchingFilterPredicate = GetCharacterGenderPredicate(searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
                     break;
             }
 
             return searchingFilterPredicate;
         }
 
-        private Func<Character, bool> GetNamePredicate(JqGridSearchOperators searchingOperator, string searchingValue)
+        private Func<Character, bool> GetCharacterNamePredicate(JqGridSearchOperators searchingOperator, string searchingValue)
         {
             Func<Character, bool> namePredicate = null;
 
@@ -245,7 +290,7 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             return namePredicate;
         }
 
-        private Func<Character, bool> GetGenderPredicate(JqGridSearchOperators searchingOperator, string searchingValue)
+        private Func<Character, bool> GetCharacterGenderPredicate(JqGridSearchOperators searchingOperator, string searchingValue)
         {
             Func<Character, bool> genderPredicate = null;
 
@@ -287,7 +332,7 @@ namespace Demo.AspNetCore.JqGrid.Controllers
                     string sortingDetailsName = sortingDetails[0];
                     JqGridSortingOrders sortingDetailsOrder = (sortingDetails.Length > 1) ? (JqGridSortingOrders)Enum.Parse(typeof(JqGridSortingOrders), sortingDetails[1], true) : sortingOrder;
 
-                    Func<Character, object> sortingExpression = GetSortingExpression(sortingDetailsName, sortingDetailsOrder);
+                    Func<Character, object> sortingExpression = GetCharacterSortingExpression(sortingDetailsName, sortingDetailsOrder);
 
                     if (sortingExpression != null)
                     {
@@ -307,7 +352,7 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             return orderedCharacters.AsQueryable();
         }
 
-        private Func<Character, object> GetSortingExpression(string sortingName, JqGridSortingOrders sortingOrder)
+        private Func<Character, object> GetCharacterSortingExpression(string sortingName, JqGridSortingOrders sortingOrder)
         {
             Func<Character, object> sortingExpression = null;
 
@@ -346,6 +391,68 @@ namespace Demo.AspNetCore.JqGrid.Controllers
 
                         return birthYear;
                     });
+                    break;
+                default:
+                    break;
+            }
+
+            return sortingExpression;
+        }
+
+        private IQueryable<Planet> SortPlanets(IQueryable<Planet> planetsQueryable, string sortingName, JqGridSortingOrders sortingOrder)
+        {
+            IOrderedEnumerable<Planet> orderedPlanets = null;
+
+            if (!String.IsNullOrWhiteSpace(sortingName))
+            {
+                sortingName = sortingName.ToLowerInvariant();
+
+                Func<Planet, object> sortingExpression = GetPlanetSortingExpression(sortingName, sortingOrder);
+
+                if (sortingExpression != null)
+                {
+                    orderedPlanets = (sortingOrder == JqGridSortingOrders.Asc) ? planetsQueryable.OrderBy(sortingExpression) : planetsQueryable.OrderByDescending(sortingExpression);
+                }
+            }
+
+            return orderedPlanets.AsQueryable();
+        }
+
+        private Func<Planet, object> GetPlanetSortingExpression(string sortingName, JqGridSortingOrders sortingOrder)
+        {
+            Func<Planet, object> sortingExpression = null;
+
+            switch (sortingName)
+            {
+                case "id":
+                    sortingExpression = (planet => planet.Id);
+                    break;
+                case "name":
+                    sortingExpression = (planet => planet.Name);
+                    break;
+                case "diameter":
+                    sortingExpression = (planet => planet.Diameter ?? ((sortingOrder == JqGridSortingOrders.Asc) ? Int32.MaxValue : Int32.MinValue));
+                    break;
+                case "rotationperiod":
+                    sortingExpression = (planet => planet.RotationPeriod ?? ((sortingOrder == JqGridSortingOrders.Asc) ? Int32.MaxValue : Int32.MinValue));
+                    break;
+                case "orbitalperiod":
+                    sortingExpression = (planet => planet.OrbitalPeriod ?? ((sortingOrder == JqGridSortingOrders.Asc) ? Int32.MaxValue : Int32.MinValue));
+                    break;
+                case "gravity":
+                    sortingExpression = (planet => {
+                        int gravity = (sortingOrder == JqGridSortingOrders.Asc) ? Int32.MaxValue : Int32.MinValue;
+
+                        if (!String.IsNullOrWhiteSpace(planet.Gravity))
+                        {
+                            gravity = Convert.ToInt32(planet.Gravity.Replace(" standard", String.Empty), CultureInfo.InvariantCulture);
+                        }
+
+                        return gravity;
+                    });
+                    break;
+                case "population":
+                    sortingExpression = (planet => planet.Population ?? ((sortingOrder == JqGridSortingOrders.Asc) ? UInt64.MaxValue : UInt64.MinValue));
                     break;
                 default:
                     break;

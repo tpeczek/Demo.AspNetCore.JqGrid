@@ -61,5 +61,7 @@
         public HairColors? HairColor { get; set; }
 
         public EyeColors EyeColor { get; set; }
+
+        public int? HomeworldId { get; set; }
     }
 }
