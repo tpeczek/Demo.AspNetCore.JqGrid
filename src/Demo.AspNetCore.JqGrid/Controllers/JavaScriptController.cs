@@ -54,6 +54,11 @@ namespace Demo.AspNetCore.JqGrid.Controllers
         {
             return View();
         }
+
+        public IActionResult SubgridAsGrid()
+        {
+            return View();
+        }
         #endregion
     }
 }

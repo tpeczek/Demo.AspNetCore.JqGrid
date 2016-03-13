@@ -17,9 +17,9 @@ namespace Demo.AspNetCore.JqGrid.Controllers
     {
         #region Actions
         [AcceptVerbs("POST")]
-        public IActionResult Characters(JqGridRequest request)
+        public IActionResult Characters(JqGridRequest request, int? homeworldId)
         {
-            IQueryable<Character> charactersQueryable = StarWarsContext.Characters.AsQueryable();
+            IQueryable<Character> charactersQueryable = (homeworldId.HasValue) ? StarWarsContext.Characters.AsQueryable().Where(character => character.HomeworldId == homeworldId.Value) : StarWarsContext.Characters.AsQueryable();
             charactersQueryable = FilterCharacters(charactersQueryable, request);
 
             int totalRecords = charactersQueryable.Count();
