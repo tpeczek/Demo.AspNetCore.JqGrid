@@ -2,7 +2,7 @@
 using Demo.StartWars.Model;
 using Lib.AspNetCore.Mvc.JqGrid.Core.Response;
 using Lib.AspNetCore.Mvc.JqGrid.Core.Json;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using Lib.AspNetCore.Mvc.JqGrid.Core.Request;
@@ -10,14 +10,16 @@ using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums;
 using System.Globalization;
 using System.Collections.Generic;
 using Demo.AspNetCore.JqGrid.Model.ModelBinders;
+using Lib.AspNetCore.Mvc.JqGrid.Core.Request.ModelBinders;
 
 namespace Demo.AspNetCore.JqGrid.Controllers
 {
+    // There is a bug in ASP.NET Core RC2 which causes ModelBinder attribute attached to a class to have no effect (https://github.com/aspnet/Mvc/issues/4652)
     public class StarWarsController : Controller
     {
         #region Actions
         [AcceptVerbs("POST")]
-        public IActionResult Characters(JqGridRequest request, int? homeworldId)
+        public IActionResult Characters([ModelBinder(BinderType = typeof(JqGridRequestModelBinder))]JqGridRequest request, int? homeworldId)
         {
             IQueryable<Character> charactersQueryable = (homeworldId.HasValue) ? StarWarsContext.Characters.AsQueryable().Where(character => character.HomeworldId == homeworldId.Value) : StarWarsContext.Characters.AsQueryable();
             charactersQueryable = FilterCharacters(charactersQueryable, request);
@@ -143,7 +145,7 @@ namespace Demo.AspNetCore.JqGrid.Controllers
         }
 
         [AcceptVerbs("POST")]
-        public IActionResult Planets(JqGridRequest request)
+        public IActionResult Planets([ModelBinder(BinderType = typeof(JqGridRequestModelBinder))]JqGridRequest request)
         {
             IQueryable<Planet> planetsQueryable = StarWarsContext.Planets.AsQueryable();
 
@@ -262,28 +264,28 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             switch (searchingOperator)
             {
                 case JqGridSearchOperators.Eq:
-                    namePredicate = (character => String.Compare(character.Name, searchingValue, StringComparison.InvariantCultureIgnoreCase) == 0);
+                    namePredicate = (character => String.Compare(character.Name, searchingValue, StringComparison.OrdinalIgnoreCase) == 0);
                     break;
                 case JqGridSearchOperators.Ne:
-                    namePredicate = (character => String.Compare(character.Name, searchingValue, StringComparison.InvariantCultureIgnoreCase) != 0);
+                    namePredicate = (character => String.Compare(character.Name, searchingValue, StringComparison.OrdinalIgnoreCase) != 0);
                     break;
                 case JqGridSearchOperators.Bw:
-                    namePredicate = (character => character.Name.StartsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
+                    namePredicate = (character => character.Name.StartsWith(searchingValue, StringComparison.OrdinalIgnoreCase));
                     break;
                 case JqGridSearchOperators.Bn:
-                    namePredicate = (character => !character.Name.StartsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
+                    namePredicate = (character => !character.Name.StartsWith(searchingValue, StringComparison.OrdinalIgnoreCase));
                     break;
                 case JqGridSearchOperators.Ew:
-                    namePredicate = (character => character.Name.EndsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
+                    namePredicate = (character => character.Name.EndsWith(searchingValue, StringComparison.OrdinalIgnoreCase));
                     break;
                 case JqGridSearchOperators.En:
-                    namePredicate = (character => !character.Name.EndsWith(searchingValue, StringComparison.InvariantCultureIgnoreCase));
+                    namePredicate = (character => !character.Name.EndsWith(searchingValue, StringComparison.OrdinalIgnoreCase));
                     break;
                 case JqGridSearchOperators.Cn:
-                    namePredicate = (character => character.Name.IndexOf(searchingValue, StringComparison.InvariantCultureIgnoreCase) >= 0);
+                    namePredicate = (character => character.Name.IndexOf(searchingValue, StringComparison.OrdinalIgnoreCase) >= 0);
                     break;
                 case JqGridSearchOperators.Nc:
-                    namePredicate = (character => character.Name.IndexOf(searchingValue, StringComparison.InvariantCultureIgnoreCase) == -1);
+                    namePredicate = (character => character.Name.IndexOf(searchingValue, StringComparison.OrdinalIgnoreCase) == -1);
                     break;
             }
 
@@ -379,11 +381,11 @@ namespace Demo.AspNetCore.JqGrid.Controllers
 
                         if (!String.IsNullOrWhiteSpace(character.BirthYear))
                         {
-                            if (character.BirthYear.EndsWith("BBY", StringComparison.InvariantCultureIgnoreCase))
+                            if (character.BirthYear.EndsWith("BBY", StringComparison.OrdinalIgnoreCase))
                             {
                                 birthYear = (-1) * Convert.ToDecimal(character.BirthYear.Substring(0, character.BirthYear.Length - 3), CultureInfo.InvariantCulture);
                             }
-                            else if (character.BirthYear.EndsWith("ABY", StringComparison.InvariantCultureIgnoreCase))
+                            else if (character.BirthYear.EndsWith("ABY", StringComparison.OrdinalIgnoreCase))
                             {
                                 birthYear = Convert.ToDecimal(character.BirthYear.Substring(0, character.BirthYear.Length - 3), CultureInfo.InvariantCulture);
                             }

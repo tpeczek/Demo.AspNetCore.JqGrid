@@ -1,0 +1,26 @@
+﻿@{ ViewBag.Title = "JqGrid in ASP.NET Core - TreeGrid"; }
+<table id="jqgFileSystemInfos" cellpadding="0" cellspacing="0"></table>
+@section scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('#jqgFileSystemInfos').jqGrid({
+                url: '@Url.Action("InfosWeaklyTyped", "FileSystem")',
+                datatype: 'json',
+                mtype: 'POST',
+                cmTemplate: { align: 'center', width: 200 },
+                colNames: [ 'Name', 'CreationTime', 'LastAccessTime', 'LastWriteTime' ],
+                colModel: [
+                            { name: 'Name', index: 'Name', align: 'left', width: 300 },
+                            { name: 'CreationTime', index: 'CreationTime' },
+                            { name: 'LastAccessTime', index: 'LastAccessTime' },
+                            { name: 'LastWriteTime', index: 'LastWriteTime' }
+                          ],
+                treeGrid: true,
+                treeGridModel: 'adjacency',
+                ExpandColumn: 'Name',
+                rowNum: -1,
+                height: '100%'
+            });
+        });
+    </script>
+}

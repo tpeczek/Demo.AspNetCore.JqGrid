@@ -1,6 +1,5 @@
 ﻿using Lib.AspNetCore.Mvc.JqGrid.Core.Request;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Demo.AspNetCore.JqGrid
@@ -16,8 +15,6 @@ namespace Demo.AspNetCore.JqGrid
         {
             JqGridRequest.ParameterNames = new JqGridParametersNames() { PagesCount = "npage" };
 
-            app.UseIISPlatformHandler();
-
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -25,7 +22,5 @@ namespace Demo.AspNetCore.JqGrid
                 routes.MapRoute(name: "default", template: "{controller=JavaScript}/{action=Basics}");
             });
         }
-
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

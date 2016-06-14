@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.AspNetCore.JqGrid.Controllers
 {
@@ -56,6 +56,11 @@ namespace Demo.AspNetCore.JqGrid.Controllers
         }
 
         public IActionResult SubgridAsGrid()
+        {
+            return View();
+        }
+
+        public IActionResult TreeGrid()
         {
             return View();
         }
