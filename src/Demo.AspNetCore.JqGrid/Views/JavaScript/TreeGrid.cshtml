@@ -11,9 +11,9 @@
                 colNames: [ 'Name', 'CreationTime', 'LastAccessTime', 'LastWriteTime' ],
                 colModel: [
                             { name: 'Name', index: 'Name', align: 'left', width: 300 },
-                            { name: 'CreationTime', index: 'CreationTime' },
-                            { name: 'LastAccessTime', index: 'LastAccessTime' },
-                            { name: 'LastWriteTime', index: 'LastWriteTime' }
+                            { name: 'CreationTime', index: 'CreationTime', formatter: 'date', formatoptions: { srcformat: 'ISO8601Long', newformat: 'd.m.Y H:i:s' } },
+                            { name: 'LastAccessTime', index: 'LastAccessTime', formatter: 'date', formatoptions: { srcformat: 'ISO8601Long', newformat: 'd.m.Y H:i:s' } },
+                            { name: 'LastWriteTime', index: 'LastWriteTime', formatter: 'date', formatoptions: { srcformat: 'ISO8601Long', newformat: 'd.m.Y H:i:s' } }
                           ],
                 treeGrid: true,
                 treeGridModel: 'adjacency',
