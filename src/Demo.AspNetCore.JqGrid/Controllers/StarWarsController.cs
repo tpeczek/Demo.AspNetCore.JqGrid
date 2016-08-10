@@ -14,12 +14,11 @@ using Lib.AspNetCore.Mvc.JqGrid.Core.Request.ModelBinders;
 
 namespace Demo.AspNetCore.JqGrid.Controllers
 {
-    // There is a bug in ASP.NET Core RC2 which causes ModelBinder attribute attached to a class to have no effect (https://github.com/aspnet/Mvc/issues/4652)
     public class StarWarsController : Controller
     {
         #region Actions
         [AcceptVerbs("POST")]
-        public IActionResult Characters([ModelBinder(BinderType = typeof(JqGridRequestModelBinder))]JqGridRequest request, int? homeworldId)
+        public IActionResult Characters(JqGridRequest request, int? homeworldId)
         {
             IQueryable<Character> charactersQueryable = (homeworldId.HasValue) ? StarWarsContext.Characters.AsQueryable().Where(character => character.HomeworldId == homeworldId.Value) : StarWarsContext.Characters.AsQueryable();
             charactersQueryable = FilterCharacters(charactersQueryable, request);
@@ -145,7 +144,7 @@ namespace Demo.AspNetCore.JqGrid.Controllers
         }
 
         [AcceptVerbs("POST")]
-        public IActionResult Planets([ModelBinder(BinderType = typeof(JqGridRequestModelBinder))]JqGridRequest request)
+        public IActionResult Planets(JqGridRequest request)
         {
             IQueryable<Planet> planetsQueryable = StarWarsContext.Planets.AsQueryable();
 
