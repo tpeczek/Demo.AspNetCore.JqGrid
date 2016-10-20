@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - Paging, Sorting & Formatting";
+
+    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.StarWarsCharacterViewModel>("jqgStarWarsCharacters")
+    {
+        Url = Url.Action("Characters", "StarWars"),
+        MethodType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridMethodTypes.Post,
+        DataType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridDataTypes.Json,
+        JsonReader = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.JqGridJsonReader { RepeatItems = false, RecordId = "Id" },
+        SortingName = "Id",
+        SortingOrder = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSortingOrders.Asc,
+        Caption = "StarWars Characters",
+        FooterEnabled = true,
+        UserDataOnFooter = true,
+        Pager = true,
+        RowsList = new List<int> { 10, 20, 30, 40, 50 },
+        RowsNumber = 10,
+        ViewRecords = true
+    };
+}
+@Html.JqGridHtml(gridOptions)
+@section scripts {
+    <script>
+        $(function () {
+            @Html.JqGridJavaScript(gridOptions)
+        });
+    </script>
+}

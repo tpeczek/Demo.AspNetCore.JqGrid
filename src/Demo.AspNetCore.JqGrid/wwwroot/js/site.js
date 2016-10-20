@@ -104,7 +104,10 @@
                 hairColorFormatter: function(cellvalue, options, rowObject) {
                     var hairColorDescription = cellvalue;
 
-                    if (!isNaN(cellvalue)) {
+                    if (hairColorDescription === null) {
+                        hairColorDescription = 'Unknown';
+                    }
+                    else if (!isNaN(cellvalue)) {
                         var hairColorValue = parseInt(cellvalue);
 
                         switch (hairColorValue) {
