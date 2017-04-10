@@ -1,26 +1,32 @@
-﻿using Demo.StartWars;
-using Demo.StartWars.Model;
-using Lib.AspNetCore.Mvc.JqGrid.Core.Response;
-using Lib.AspNetCore.Mvc.JqGrid.Core.Json;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Linq;
-using Lib.AspNetCore.Mvc.JqGrid.Core.Request;
-using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums;
 using System.Globalization;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Lib.AspNetCore.Mvc.JqGrid.Core.Json;
+using Lib.AspNetCore.Mvc.JqGrid.Core.Response;
+using Lib.AspNetCore.Mvc.JqGrid.Core.Request;
+using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums;
+using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching;
+using Demo.StartWars;
+using Demo.StartWars.Model;
 using Demo.AspNetCore.JqGrid.Model.ModelBinders;
-using Lib.AspNetCore.Mvc.JqGrid.Core.Request.ModelBinders;
 
 namespace Demo.AspNetCore.JqGrid.Controllers
 {
     public class StarWarsController : Controller
     {
         #region Actions
-        [AcceptVerbs("POST")]
-        public IActionResult Characters(JqGridRequest request, int? homeworldId)
+        [AcceptVerbs("GET")]
+        public IActionResult CharactersNames(string term)
         {
-            IQueryable<Character> charactersQueryable = (homeworldId.HasValue) ? StarWarsContext.Characters.AsQueryable().Where(character => character.HomeworldId == homeworldId.Value) : StarWarsContext.Characters.AsQueryable();
+            return Json(StarWarsContext.Characters.AsQueryable().Where(character => character.Name.StartsWith(term)).Select(character => new { id = character.Id, label = character.Name }));
+        }
+
+        [AcceptVerbs("POST")]
+        public IActionResult Characters(JqGridRequest request, int? rowId)
+        {
+            IQueryable<Character> charactersQueryable = (rowId.HasValue) ? StarWarsContext.Characters.AsQueryable().Where(character => character.HomeworldId == rowId.Value) : StarWarsContext.Characters.AsQueryable();
             charactersQueryable = FilterCharacters(charactersQueryable, request);
 
             int totalRecords = charactersQueryable.Count();
@@ -209,17 +215,17 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             return (filterPredicate == null) ? charactersQueryable : charactersQueryable.Where(character => filterPredicate(character));
         }
 
-        private Func<Character, bool> GetCharacterSearchingFiltersPredicate(JqGridRequestSearchingFilters searchingFilters)
+        private Func<Character, bool> GetCharacterSearchingFiltersPredicate(JqGridSearchingFilters searchingFilters)
         {
             Func<Character, bool> searchingFiltersPredicate = null;
             IList<Func<Character, bool>> searchingFilterPredicates = new List<Func<Character, bool>>();
 
-            foreach (JqGridRequestSearchingFilter searchingFilter in searchingFilters.Filters)
+            foreach (JqGridSearchingFilter searchingFilter in searchingFilters.Filters)
             {
                 searchingFilterPredicates.Add(GetCharacterSearchingFilterPredicate(searchingFilter));
             }
 
-            foreach (JqGridRequestSearchingFilters searchingFilterGroup in searchingFilters.Groups)
+            foreach (JqGridSearchingFilters searchingFilterGroup in searchingFilters.Groups)
             {
                 searchingFilterPredicates.Add(GetCharacterSearchingFiltersPredicate(searchingFilterGroup));
             }
@@ -239,7 +245,7 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             return searchingFiltersPredicate;
         }
 
-        private Func<Character, bool> GetCharacterSearchingFilterPredicate(JqGridRequestSearchingFilter searchingFilter)
+        private Func<Character, bool> GetCharacterSearchingFilterPredicate(JqGridSearchingFilter searchingFilter)
         {
             Func<Character, bool> searchingFilterPredicate = null;
 

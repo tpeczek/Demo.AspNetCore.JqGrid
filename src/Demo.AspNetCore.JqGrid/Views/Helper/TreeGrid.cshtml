@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - TreeGrid";
+
+    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.FileSystemInfoViewModel>("jqgStarWarsCharacters")
+    {
+        Url = Url.Action("InfosStronglyTyped", "FileSystem"),
+        MethodType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridMethodTypes.Post,
+        DataType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridDataTypes.Json,
+        JsonReader = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.JqGridJsonReader { RepeatItems = false, RecordId = "Id" },
+        TreeGridEnabled = true,
+        TreeGridModel = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridTreeGridModels.Adjacency,
+        ExpandColumn = "Name",
+        RowsNumber = -1
+    };
+}
+@Html.JqGridHtml(gridOptions)
+@section scripts {
+    <script>
+        $(function () {
+            @Html.JqGridJavaScript(gridOptions)
+        });
+    </script>
+}

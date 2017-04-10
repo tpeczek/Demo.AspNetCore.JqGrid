@@ -1,9 +1,13 @@
 {
-	"name": "ASP.NET",
-	"private": true,
+  "name": "ASP.NET",
+  "private": true,
   "dependencies": {
-    "jquery": "2.2.1",
+    "jquery": "2.2.3",
     "jquery-ui": "1.11.4",
-    "jqgrid": "5.0.2"
+    "jqGrid": "5.1.0",
+    "free-jqgrid": "4.13.6"
+  },
+  "resolutions": {
+    "jquery": ">=1.7.2"
   }
 }

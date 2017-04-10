@@ -2,7 +2,7 @@
 
 This demo application shows how jqGrid can be used in ASP.NET Core (with help of [Lib.AspNetCore.Mvc.JqGrid](https://github.com/tpeczek/Lib.AspNetCore.Mvc.JqGrid)).
 
-Beta packages for Lib.AspNetCore.Mvc.JqGrid are available on NuGet.
+Packages for Lib.AspNetCore.Mvc.JqGrid are available on NuGet.
 
 ## Donating
 Lib.AspNetCore.Mvc.JqGrid is a personal open source project. If Lib.AspNetCore.Mvc.JqGridc has been helpful to you, consider donating. Donating helps support Lib.AspNetCore.Mvc.JqGrid.

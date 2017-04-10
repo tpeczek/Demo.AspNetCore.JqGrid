@@ -1,7 +1,7 @@
 ﻿@{
-    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - Paging, Sorting & Formatting";
+    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - Form Editing";
 
-    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.StarWarsCharacterViewModel>("jqgStarWarsCharacters")
+    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.EditableStarWarsCharacterViewModel>("jqgStarWarsCharacters")
     {
         CompatibilityMode = (ViewBag.JqGrid == "free-jqgrid") ? Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.FreeJqGrid : Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.GuriddoJqGrid,
         Url = Url.Action("Characters", "StarWars"),
@@ -14,9 +14,18 @@
         FooterEnabled = true,
         UserDataOnFooter = true,
         Pager = true,
-        RowsList = new List<int> { 10, 20, 30, 40, 50 },
         RowsNumber = 10,
-        ViewRecords = true
+        ViewRecords = true,
+        Navigator = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridNavigatorOptions
+        {
+            Add = true,
+            AddOptions = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridNavigatorEditActionOptions { Url = Url.Action("UpsertCharacter", "StarWars") },
+            Edit = true,
+            EditOptions = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridNavigatorEditActionOptions { Url = Url.Action("UpsertCharacter", "StarWars") },
+            Delete = true,
+            DeleteOptions = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridNavigatorDeleteActionOptions { Url = Url.Action("DeleteCharacter", "StarWars") },
+            Search = false
+        }
     };
 }
 @Html.JqGridHtml(gridOptions)

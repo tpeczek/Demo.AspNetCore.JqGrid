@@ -1,26 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2D7ED3F6-1DB4-4BA9-8BDD-A48BC7649E0C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10A895C5-37D4-4C06-8B2D-0E236B4AAB89}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Demo.AspNetCore.JqGrid", "src\Demo.AspNetCore.JqGrid\Demo.AspNetCore.JqGrid.xproj", "{DD5F6053-45F1-4F32-82C8-510B2250FDE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.AspNetCore.JqGrid", "src\Demo.AspNetCore.JqGrid\Demo.AspNetCore.JqGrid.csproj", "{DD5F6053-45F1-4F32-82C8-510B2250FDE8}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Demo.StartWars", "src\Demo.StartWars\Demo.StartWars.xproj", "{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Lib.AspNetCore.Mvc.JqGrid.Infrastructure", "..\Lib.AspNetCore.Mvc.JqGrid\Lib.AspNetCore.Mvc.JqGrid.Infrastructure\Lib.AspNetCore.Mvc.JqGrid.Infrastructure.xproj", "{B69AB448-29EC-4CE9-8FF8-855EB37AF616}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Lib.AspNetCore.Mvc.JqGrid.Core", "..\Lib.AspNetCore.Mvc.JqGrid\Lib.AspNetCore.Mvc.JqGrid.Core\Lib.AspNetCore.Mvc.JqGrid.Core.xproj", "{84376D62-74CE-44BA-94E6-D46B7B11D1EE}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Lib.AspNetCore.Mvc.JqGrid.Helper", "..\Lib.AspNetCore.Mvc.JqGrid\Lib.AspNetCore.Mvc.JqGrid.Helper\Lib.AspNetCore.Mvc.JqGrid.Helper.xproj", "{5F799D32-A330-4445-8582-6939BE1BC88B}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Lib.AspNetCore.Mvc.JqGrid.DataAnnotations", "..\Lib.AspNetCore.Mvc.JqGrid\Lib.AspNetCore.Mvc.JqGrid.DataAnnotations\Lib.AspNetCore.Mvc.JqGrid.DataAnnotations.xproj", "{08B7C3F0-9293-4298-B107-7A36C8A27A5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.StartWars", "src\Demo.StartWars\Demo.StartWars.csproj", "{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,22 +25,6 @@ Global
 		{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B24ADC1-B8DA-4CBD-8D8D-F708DB95E24E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B69AB448-29EC-4CE9-8FF8-855EB37AF616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B69AB448-29EC-4CE9-8FF8-855EB37AF616}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B69AB448-29EC-4CE9-8FF8-855EB37AF616}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B69AB448-29EC-4CE9-8FF8-855EB37AF616}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84376D62-74CE-44BA-94E6-D46B7B11D1EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84376D62-74CE-44BA-94E6-D46B7B11D1EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84376D62-74CE-44BA-94E6-D46B7B11D1EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84376D62-74CE-44BA-94E6-D46B7B11D1EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F799D32-A330-4445-8582-6939BE1BC88B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F799D32-A330-4445-8582-6939BE1BC88B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F799D32-A330-4445-8582-6939BE1BC88B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F799D32-A330-4445-8582-6939BE1BC88B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08B7C3F0-9293-4298-B107-7A36C8A27A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08B7C3F0-9293-4298-B107-7A36C8A27A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08B7C3F0-9293-4298-B107-7A36C8A27A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08B7C3F0-9293-4298-B107-7A36C8A27A5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

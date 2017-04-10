@@ -6,36 +6,12 @@ using Lib.AspNetCore.Mvc.JqGrid.Core.Response;
 using Lib.AspNetCore.Mvc.JqGrid.Core.Json;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Demo.AspNetCore.JqGrid.Model;
 
 namespace Demo.AspNetCore.JqGrid.Controllers
 {
     public class FileSystemController : Controller
     {
-        #region Classes
-        private class FileSystemInfoViewModel
-        {
-            #region Properties
-            public string Name { get; set; }
-            
-            public string CreationTime { get; set; }
-            
-            public string LastAccessTime { get; set; }
-            
-            public string LastWriteTime { get; set; }
-            #endregion
-
-            #region Constructor
-            public FileSystemInfoViewModel(FileSystemInfo info)
-            {
-                Name = info.Name;
-                CreationTime = info.CreationTime.ToString();
-                LastAccessTime = info.LastAccessTime.ToString();
-                LastWriteTime = info.LastWriteTime.ToString();
-            }
-            #endregion
-        }
-        #endregion
-
         #region Fields
         private readonly IHostingEnvironment _hostingEnvironment;
 
@@ -71,6 +47,42 @@ namespace Demo.AspNetCore.JqGrid.Controllers
                     };
 
                     response.Records.Add(new JqGridAdjacencyTreeRecord(Convert.ToString(GetTreeGridId(child)), valuesList, child.FullName.Count(c => c == '\\') - 2, Convert.ToString(GetTreeGridId(root)))
+                    {
+                        Leaf = (child is FileInfo)
+                    });
+                }
+
+                return new JqGridJsonResult(response);
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+        }
+
+        [AcceptVerbs("POST")]
+        public IActionResult InfosStronglyTyped(int? nodeid)
+        {
+            DirectoryInfo root = GetDirectoryInfo(nodeid);
+            IEnumerable<FileSystemInfo> children = GetFileSystemInfos(nodeid);
+
+            if (children != null)
+            {
+                JqGridResponse response = new JqGridResponse();
+                response.Reader.RecordId = "Id";
+                response.Reader.RepeatItems = false;
+
+                foreach (FileSystemInfo child in children)
+                {
+                    FileSystemInfoViewModel value = new FileSystemInfoViewModel
+                    {
+                        Name = child.Name,
+                        CreationTime = child.CreationTime,
+                        LastAccessTime = child.LastAccessTime,
+                        LastWriteTime = child.LastWriteTime
+                    };
+
+                    response.Records.Add(new JqGridAdjacencyTreeRecord(Convert.ToString(GetTreeGridId(child)), value, child.FullName.Count(c => c == '\\') - 2, Convert.ToString(GetTreeGridId(root)))
                     {
                         Leaf = (child is FileInfo)
                     });

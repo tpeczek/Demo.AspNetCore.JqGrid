@@ -29,7 +29,6 @@
                 viewrecords: true,
                 height: '100%',
                 subGrid: true,
-                subGrid: true,
                 subGridRowExpanded: function (subgridId, rowId) {
                     var $subgridContainer = $('#' + subgridId);
 
@@ -40,7 +39,7 @@
                     $subgridContainer.append($subgridPager);
 
                     $subgridTable.jqGrid({
-                        url: '/StarWars/Characters?homeworldId=' + rowId,
+                        url: '/StarWars/Characters?rowId=' + rowId,
                         datatype: 'json',
                         mtype: 'POST',
                         cmTemplate: { align: 'center' },

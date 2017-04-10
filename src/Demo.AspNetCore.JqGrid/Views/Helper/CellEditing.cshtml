@@ -1,7 +1,7 @@
 ﻿@{
-    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - Paging, Sorting & Formatting";
+    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - Cell Editing";
 
-    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.StarWarsCharacterViewModel>("jqgStarWarsCharacters")
+    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.EditableStarWarsCharacterViewModel>("jqgStarWarsCharacters")
     {
         CompatibilityMode = (ViewBag.JqGrid == "free-jqgrid") ? Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.FreeJqGrid : Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.GuriddoJqGrid,
         Url = Url.Action("Characters", "StarWars"),
@@ -11,10 +11,11 @@
         SortingName = "Id",
         SortingOrder = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSortingOrders.Asc,
         Caption = "StarWars Characters",
+        CellEditingEnabled = true,
+        CellEditingUrl = Url.Action("UpdateCharacterProperty", "StarWars"),
         FooterEnabled = true,
         UserDataOnFooter = true,
         Pager = true,
-        RowsList = new List<int> { 10, 20, 30, 40, 50 },
         RowsNumber = 10,
         ViewRecords = true
     };

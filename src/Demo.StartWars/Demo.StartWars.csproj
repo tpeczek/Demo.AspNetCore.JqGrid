@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Demo.StartWars Class Library</Description>
+    <Copyright>Copyright © 2016 Tomasz Pęczek</Copyright>
+    <Authors>Tomasz Pęczek</Authors>
+    <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
+    <AssemblyName>Demo.StartWars</AssemblyName>
+    <PackageId>Demo.StartWars</PackageId>
+    <PackageTags>aspnetcore;aspnetcoremvc;jqgrid</PackageTags>
+    <PackageProjectUrl>https://github.com/tpeczek/Demo.AspNetCore.JqGrid</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/tpeczek/Demo.AspNetCore.JqGrid/blob/master/LICENSE.md</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/tpeczek/Demo.AspNetCore.JqGrid</RepositoryUrl>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

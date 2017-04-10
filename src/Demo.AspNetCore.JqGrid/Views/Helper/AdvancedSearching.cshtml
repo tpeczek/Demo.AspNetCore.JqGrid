@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - AdvancedSearching";
+
+    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.SearchableStarWarsCharacterViewModel>("jqgStarWarsCharacters")
+    {
+        CompatibilityMode = (ViewBag.JqGrid == "free-jqgrid") ? Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.FreeJqGrid : Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.GuriddoJqGrid,
+        Url = Url.Action("Characters", "StarWars"),
+        MethodType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridMethodTypes.Post,
+        DataType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridDataTypes.Json,
+        JsonReader = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.JqGridJsonReader { RepeatItems = false, RecordId = "Id" },
+        SortingName = "Id",
+        SortingOrder = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSortingOrders.Asc,
+        Caption = "StarWars Characters",
+        FooterEnabled = true,
+        UserDataOnFooter = true,
+        Pager = true,
+        RowsNumber = 10,
+        ViewRecords = true,
+        Navigator = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridNavigatorOptions
+        {
+            Add = false,
+            Edit = false,
+            Delete = false,
+            SearchOptions = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridNavigatorSearchActionOptions
+            {
+                AdvancedSearching = true,
+                AdvancedSearchingWithGroups = true,
+                CloneSearchRowOnAdd = false,
+                Templates = new Dictionary<string, Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilters>
+                {
+                    { "Jedi", new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilters
+                        {
+                            GroupingOperator = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSearchGroupingOperators.Or,
+                            Filters = new List<Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilter>
+                            {
+                                new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilter { SearchingName = "Name", SearchingOperator = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSearchOperators.Eq, SearchingValue = "Yoda" },
+                                new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilter { SearchingName = "Name", SearchingOperator = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSearchOperators.Eq, SearchingValue = "Obi-Wan Kenobi" },
+                                new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilter { SearchingName = "Name", SearchingOperator = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSearchOperators.Eq, SearchingValue = "Anakin Skywalker" },
+                                new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilter { SearchingName = "Name", SearchingOperator = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSearchOperators.Eq, SearchingValue = "Luke Skywalker" }
+                            }
+                        }
+                    },
+                    { "Sith", new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilters
+                        {
+                            GroupingOperator = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSearchGroupingOperators.Or,
+                            Filters = new List<Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilter>
+                            {
+                                new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilter { SearchingName = "Name", SearchingOperator = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSearchOperators.Eq, SearchingValue = "Palpatine" },
+                                new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Searching.JqGridSearchingFilter { SearchingName = "Name", SearchingOperator = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSearchOperators.Eq, SearchingValue = "Darth Vader" }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+    }
+    @Html.JqGridHtml(gridOptions)
+@section scripts {
+    <script>
+        $(function () {
+            @Html.JqGridJavaScript(gridOptions)
+        });
+    </script>
+}

@@ -1,5 +1,7 @@
 ﻿using Lib.AspNetCore.Mvc.JqGrid.Core.Request;
+using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Demo.AspNetCore.JqGrid
@@ -11,13 +13,17 @@ namespace Demo.AspNetCore.JqGrid
             services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            JqGridRequest.ParameterNames = new JqGridParametersNames() { PagesCount = "npage" };
+            JqGridRequest.ParametersNames = new JqGridParametersNames() { PagesCount = "npage" };
 
-            app.UseStaticFiles();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
-            app.UseMvc(routes =>
+            app.UseStaticFiles()
+                .UseMvc(routes =>
             {
                 routes.MapRoute(name: "default", template: "{controller=JavaScript}/{action=Basics}");
             });

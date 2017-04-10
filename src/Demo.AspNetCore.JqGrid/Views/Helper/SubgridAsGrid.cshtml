@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - Subgrid as Grid";
+
+    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.StarWarsPlanetViewModel>("jqgStarWarsPlanets")
+    {
+        Url = Url.Action("Planets", "StarWars"),
+        MethodType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridMethodTypes.Post,
+        DataType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridDataTypes.Json,
+        JsonReader = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.JqGridJsonReader { RepeatItems = false, RecordId = "Id" },
+        SortingName = "Id",
+        SortingOrder = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSortingOrders.Asc,
+        Caption = "StarWars Planets",
+        SubgridEnabled = true,
+        SubgridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.StarWarsCharacterViewModel>("jqgStarWarsCharacters")
+        {
+            Url = Url.Action("Characters", "StarWars"),
+            MethodType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridMethodTypes.Post,
+            DataType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridDataTypes.Json,
+            JsonReader = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.JqGridJsonReader { RepeatItems = false, RecordId = "Id" },
+            SortingName = "Id",
+            SortingOrder = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSortingOrders.Asc,
+            Pager = true,
+            RowsNumber = 10,
+            ViewRecords = true
+        },
+        Pager = true,
+        RowsNumber = 10,
+        ViewRecords = true
+    };
+}
+@Html.JqGridHtml(gridOptions)
+@section scripts {
+    <script>
+        $(function () {
+            @Html.JqGridJavaScript(gridOptions)
+        });
+    </script>
+}

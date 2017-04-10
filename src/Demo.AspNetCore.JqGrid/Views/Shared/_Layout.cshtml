@@ -32,6 +32,15 @@
                 Strongly Typed Helper
                 <ul>
                     <li><a asp-controller="Helper" asp-action="Basics">Paging, Sorting & Formatting</a></li>
+                    <li><a asp-controller="Helper" asp-action="DynamicScrolling">Dynamic Scrolling</a></li>
+                    <li><a asp-controller="Helper" asp-action="Grouping">Grouping</a></li>
+                    <li><a asp-controller="Helper" asp-action="SingleSearching">Single Searching</a></li>
+                    <li><a asp-controller="Helper" asp-action="AdvancedSearching">Advanced Searching</a></li>
+                    <li><a asp-controller="Helper" asp-action="CellEditing">Cell Editing</a></li>
+                    <li><a asp-controller="Helper" asp-action="FormEditing">Form Editing</a></li>
+                    <li><a asp-controller="Helper" asp-action="Subgrid">Subgrid</a></li>
+                    <li><a asp-controller="Helper" asp-action="SubgridAsGrid">Subgrid as Grid</a></li>
+                    <li><a asp-controller="Helper" asp-action="TreeGrid">TreeGrid</a></li>
                 </ul>
             </li>
         </ul>
@@ -46,8 +55,16 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
-    <script src="~/lib/jqgrid/js/i18n/grid.locale-en.js"></script>
-    <script src="~/lib/jqgrid/js/jquery.jqGrid.min.js"></script>
+    @if (ViewBag.JqGrid == "free-jqgrid")
+    {
+        <script src="~/lib/free-jqgrid/js/i18n/grid.locale-en.js"></script>
+        <script src="~/lib/free-jqgrid/js/jquery.jqgrid.min.js"></script>
+    }
+    else
+    {
+        <script src="~/lib/jqgrid/js/i18n/grid.locale-en.js"></script>
+        <script src="~/lib/jqgrid/js/jquery.jqGrid.min.js"></script>
+    }
     <script src="~/js/site.js"></script>
     @RenderSection("scripts", required: false)
 </body>
