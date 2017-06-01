@@ -1,8 +1,9 @@
 ﻿@{
-    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - Grouping";
+    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - Toolbar Searching";
 
-    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.StarWarsCharacterViewModel>("jqgStarWarsCharacters")
+    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.SearchableStarWarsCharacterViewModel>("jqgStarWarsCharacters")
     {
+        CompatibilityMode = (ViewBag.JqGrid == "free-jqgrid") ? Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.FreeJqGrid : Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.GuriddoJqGrid,
         Url = Url.Action("Characters", "StarWars"),
         MethodType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridMethodTypes.Post,
         DataType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridDataTypes.Json,
@@ -10,19 +11,15 @@
         SortingName = "Id",
         SortingOrder = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSortingOrders.Asc,
         Caption = "StarWars Characters",
-        GroupingEnabled = true,
-        GroupingView = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.JqGridGroupingView
-        {
-            Fields = new [] { "Gender" },
-            DataSorted = true,
-            ColumnShow = new [] { false },
-            Summary = new [] { true }
-        },
         FooterEnabled = true,
         UserDataOnFooter = true,
         Pager = true,
-        RowsNumber = 100,
-        ViewRecords = true
+        RowsNumber = 10,
+        ViewRecords = true,
+        FilterToolbar = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.JqGridFilterToolbarOptions
+        {
+            StringResult = true
+        }
     };
 }
 @Html.JqGridHtml(gridOptions)

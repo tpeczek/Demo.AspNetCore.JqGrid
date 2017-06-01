@@ -15,6 +15,11 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             return GetJqGridView(nameof(DynamicScrolling));
         }
 
+        public IActionResult HeaderGrouping()
+        {
+            return GetJqGridView(nameof(HeaderGrouping));
+        }
+
         public IActionResult Grouping()
         {
             return GetJqGridView(nameof(Grouping));
@@ -30,9 +35,19 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             return GetJqGridView(nameof(AdvancedSearching));
         }
 
+        public IActionResult ToolbarSearching()
+        {
+            return GetJqGridView(nameof(ToolbarSearching));
+        }
+
         public IActionResult CellEditing()
         {
             return GetJqGridView(nameof(CellEditing));
+        }
+
+        public IActionResult InlineEditing()
+        {
+            return GetJqGridView(nameof(InlineEditing));
         }
 
         public IActionResult FormEditing()

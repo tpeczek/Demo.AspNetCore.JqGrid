@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "JqGrid Strongly Typed Helper in ASP.NET Core - Inline Editing";
+
+    var gridOptions = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.JqGridOptions<Demo.AspNetCore.JqGrid.Model.EditableStarWarsCharacterViewModel>("jqgStarWarsCharacters")
+    {
+        CompatibilityMode = (ViewBag.JqGrid == "free-jqgrid") ? Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.FreeJqGrid : Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridCompatibilityModes.GuriddoJqGrid,
+        Url = Url.Action("Characters", "StarWars"),
+        EditingUrl = @Url.Action("UpsertCharacter", "StarWars"),
+        MethodType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridMethodTypes.Post,
+        DataType = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridDataTypes.Json,
+        JsonReader = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.JqGridJsonReader { RepeatItems = false, RecordId = "Id" },
+        SortingName = "Id",
+        SortingOrder = Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums.JqGridSortingOrders.Asc,
+        Caption = "StarWars Characters",
+        FooterEnabled = true,
+        UserDataOnFooter = true,
+        Pager = true,
+        RowsNumber = 10,
+        ViewRecords = true,
+        ActionsColumn = new Lib.AspNetCore.Mvc.JqGrid.Helper.Options.ColumnModel.JqGridActionsColumnOptions("actions")
+        {
+            Keys = true,
+            DeleteOptions = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridNavigatorDeleteActionOptions { Url = Url.Action("DeleteCharacter", "StarWars") }
+        },
+        Navigator = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridNavigatorOptions { Add = false, Edit = false, Delete = false, Search = false },
+        InlineNavigator = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridInlineNavigatorOptions
+        {
+            Edit = false,
+            AddActionOptions = new Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options.Navigator.JqGridInlineNavigatorAddActionOptions { RowId = "-1" }
+        }
+    };
+}
+@Html.JqGridHtml(gridOptions)
+@section scripts {
+    <script>
+        $(function () {
+            @Html.JqGridJavaScript(gridOptions)
+        });
+    </script>
+}
