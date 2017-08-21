@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>Demo.AspNetCore.JqGrid</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>Demo.AspNetCore.JqGrid</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="Views\**\*;wwwroot\**\*">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.StartWars\Demo.StartWars.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Lib.AspNetCore.Mvc.JqGrid.Helper" Version="2.0.0" />
+  </ItemGroup>
+</Project>
