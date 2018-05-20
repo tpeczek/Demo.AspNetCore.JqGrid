@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <Description>Demo.StartWars Class Library</Description>
     <Copyright>Copyright © 2016 Tomasz Pęczek</Copyright>

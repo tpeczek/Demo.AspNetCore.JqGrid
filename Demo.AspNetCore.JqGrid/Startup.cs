@@ -1,8 +1,9 @@
-﻿using Lib.AspNetCore.Mvc.JqGrid.Core.Request;
-using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Lib.AspNetCore.Mvc.JqGrid.Core.Request;
+using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Options;
 
 namespace Demo.AspNetCore.JqGrid
 {
@@ -10,7 +11,7 @@ namespace Demo.AspNetCore.JqGrid
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
