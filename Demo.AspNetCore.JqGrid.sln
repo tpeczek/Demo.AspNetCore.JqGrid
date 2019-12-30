@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.AspNetCore.JqGrid", "Demo.AspNetCore.JqGrid\Demo.AspNetCore.JqGrid.csproj", "{DD5F6053-45F1-4F32-82C8-510B2250FDE8}"
 EndProject

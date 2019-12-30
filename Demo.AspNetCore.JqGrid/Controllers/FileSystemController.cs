@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Lib.AspNetCore.Mvc.JqGrid.Core.Response;
-using Lib.AspNetCore.Mvc.JqGrid.Core.Json;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
+using Lib.AspNetCore.Mvc.JqGrid.Core.Results;
+using Lib.AspNetCore.Mvc.JqGrid.Core.Response;
 using Demo.AspNetCore.JqGrid.Model;
 
 namespace Demo.AspNetCore.JqGrid.Controllers
@@ -13,13 +13,13 @@ namespace Demo.AspNetCore.JqGrid.Controllers
     public class FileSystemController : Controller
     {
         #region Fields
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        private static List<string> _treeGridIdMappings = new List<string>();
+        private static readonly List<string> _treeGridIdMappings = new List<string>();
         #endregion
 
         #region Constructor
-        public FileSystemController(IHostingEnvironment hostingEnvironment)
+        public FileSystemController(IWebHostEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
         }
