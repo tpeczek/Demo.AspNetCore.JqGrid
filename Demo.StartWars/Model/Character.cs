@@ -1,4 +1,6 @@
-﻿namespace Demo.StartWars.Model
+﻿using System;
+
+namespace Demo.StartWars.Model
 {
     public enum Genders
     {
@@ -63,5 +65,7 @@
         public EyeColors EyeColor { get; set; }
 
         public int? HomeworldId { get; set; }
+
+        public DateTime FirstAppearance { get; set; }
     }
 }

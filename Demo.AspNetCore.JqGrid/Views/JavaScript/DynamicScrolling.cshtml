@@ -9,7 +9,7 @@
                 datatype: 'json',
                 mtype: 'POST',
                 cmTemplate: { align: 'center' },
-                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color' ],
+                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color', 'FirstAppearance' ],
                 colModel: [
                             { name: 'Name' },
                             { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter },
@@ -18,7 +18,8 @@
                             { name: 'BirthYear' },
                             { name: 'SkinColor', sortable: false, formatter: demo.jqGrid.character.skinColorFormatter },
                             { name: 'HairColor', sortable: false, formatter: demo.jqGrid.character.hairColorFormatter },
-                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter }
+                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter },
+                            { name: 'FirstAppearance', align: 'center', formatter: 'date', formatoptions: { srcformat: 'ISO8601Long' } }
                           ],
                 caption: 'StarWars Characters',
                 footerrow: true,

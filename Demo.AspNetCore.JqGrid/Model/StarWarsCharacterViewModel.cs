@@ -1,7 +1,9 @@
-﻿using Demo.StartWars.Model;
+﻿using System;
+using Demo.StartWars.Model;
 using System.ComponentModel.DataAnnotations;
 using Lib.AspNetCore.Mvc.JqGrid.DataAnnotations;
 using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Enums;
+using Lib.AspNetCore.Mvc.JqGrid.Infrastructure.Constants;
 
 namespace Demo.AspNetCore.JqGrid.Model
 {
@@ -47,5 +49,10 @@ namespace Demo.AspNetCore.JqGrid.Model
         [JqGridColumnSortable(false)]
         [JqGridColumnFormatter("demo.jqGrid.character.eyeColorFormatter")]
         public EyeColors EyeColor { get; set; }
+
+        [Display(Name = "First Appearance")]
+        [JqGridColumnLayout(Alignment = JqGridAlignments.Center)]
+        [JqGridColumnFormatter(JqGridPredefinedFormatters.Date, SourceFormat = "ISO8601Long")]
+        public DateTime FirstAppearance { get; set; }
     }
 }

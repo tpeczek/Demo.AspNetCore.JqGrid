@@ -1,4 +1,5 @@
-﻿using Demo.StartWars.Model;
+﻿using System;
+using Demo.StartWars.Model;
 using System.Collections.Generic;
 
 namespace Demo.StartWars
@@ -45,27 +46,27 @@ namespace Demo.StartWars
         {
             return new List<Character>
             {
-                new Character { Id = 1, Name = "Luke Skywalker", Gender = Genders.Male, Height = 172, Weight = 77, BirthYear = "19BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Blond, EyeColor = EyeColors.Blue, HomeworldId = 1 },
-                new Character { Id = 2, Name = "C-3PO", Height = 167, Weight = 75, BirthYear = "112BBY", SkinColor = SkinColors.Gold, EyeColor = EyeColors.Yellow, HomeworldId = 1 },
-                new Character { Id = 3, Name = "R2-D2", Height = 96, Weight = 32, BirthYear = "33BBY", SkinColor = SkinColors.Blue, EyeColor = EyeColors.Red, HomeworldId = 8 },
-                new Character { Id = 4, Name = "Darth Vader", Gender = Genders.Male, Height = 202, Weight = 136, BirthYear = "41.9BBY", SkinColor = SkinColors.White, HairColor = HairColors.None, EyeColor = EyeColors.Yellow, HomeworldId = 1 },
-                new Character { Id = 5, Name = "Leia Organa", Gender = Genders.Female, Height = 150, Weight = 49, BirthYear = "19BBY", SkinColor = SkinColors.Light, HairColor = HairColors.Brown, EyeColor = EyeColors.Brown, HomeworldId = 2 },
-                new Character { Id = 6, Name = "Owen Lars", Gender = Genders.Male, Height = 178, Weight = 120, BirthYear = "52BBY", SkinColor = SkinColors.Light, HairColor = HairColors.Grey, EyeColor = EyeColors.Blue, HomeworldId = 1 },
-                new Character { Id = 7, Name = "Beru Whitesun Lars", Gender = Genders.Female, Height = 165, Weight = 75, BirthYear = "47BBY", SkinColor = SkinColors.Light, HairColor = HairColors.Brown, EyeColor = EyeColors.Blue, HomeworldId = 1 },
-                new Character { Id = 8, Name = "R5-D4", Height = 97, Weight = 32, BirthYear = "Unknown", SkinColor = SkinColors.Red, EyeColor = EyeColors.Red, HomeworldId = 1 },
-                new Character { Id = 9, Name = "Biggs Darklighter", Gender = Genders.Male, Height = 183, Weight = 84, BirthYear = "24BBY", SkinColor = SkinColors.Light, HairColor = HairColors.Black, EyeColor = EyeColors.Brown, HomeworldId = 1 },
-                new Character { Id = 10, Name = "Obi-Wan Kenobi", Gender = Genders.Male, Height = 182, Weight = 77, BirthYear = "57BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Auburn, EyeColor = EyeColors.Blue, HomeworldId = 20 },
-                new Character { Id = 11, Name = "Anakin Skywalker", Gender = Genders.Male, Height = 188, Weight = 84, BirthYear = "41.9BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Brown, EyeColor = EyeColors.Blue, HomeworldId = 1 },
-                new Character { Id = 12, Name = "Wilhuff Tarkin", Gender = Genders.Male, Height = 180, BirthYear = "64BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Auburn, EyeColor = EyeColors.Blue, HomeworldId = 21 },
-                new Character { Id = 13, Name = "Chewbacca", Gender = Genders.Male, Height = 228, Weight = 112, BirthYear = "200BBY", HairColor = HairColors.Brown, EyeColor = EyeColors.Blue, HomeworldId = 14 },
-                new Character { Id = 14, Name = "Han Solo", Gender = Genders.Male, Height = 180, Weight = 80, BirthYear = "29BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Brown, EyeColor = EyeColors.Brown, HomeworldId = 22 },
-                new Character { Id = 15, Name = "Greedo", Gender = Genders.Male, Height = 173, Weight = 74, BirthYear = "44BBY", SkinColor = SkinColors.Green, EyeColor = EyeColors.Black, HomeworldId = 23 },
-                new Character { Id = 16, Name = "Jabba Desilijic Tiure", Gender = Genders.Hermaphrodite, Height = 175, Weight = 1358, BirthYear = "600BBY", SkinColor = SkinColors.GreenTan, EyeColor = EyeColors.Orange, HomeworldId = 24 },
-                new Character { Id = 18, Name = "Wedge Antilles", Gender = Genders.Male, Height = 170, Weight = 77, BirthYear = "21BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Brown, EyeColor = EyeColors.Hazel, HomeworldId = 22 },
-                new Character { Id = 19, Name = "Jek Tono Porkins", Gender = Genders.Male, Height = 180, Weight = 110, BirthYear = "Unknown", SkinColor = SkinColors.Fair, HairColor = HairColors.Brown, EyeColor = EyeColors.Blue, HomeworldId = 26 },
-                new Character { Id = 20, Name = "Yoda", Gender = Genders.Male, Height = 66, Weight = 17, BirthYear = "896BBY", SkinColor = SkinColors.Green, HairColor = HairColors.White, EyeColor = EyeColors.Brown },
-                new Character { Id = 21, Name = "Palpatine", Gender = Genders.Male, Height = 170, Weight = 75, BirthYear = "82BBY", SkinColor = SkinColors.Pale, HairColor = HairColors.Grey, EyeColor = EyeColors.Yellow, HomeworldId = 8 },
-                new Character { Id = 22, Name = "Boba Fett", Gender = Genders.Male, Height = 183, Weight = 78, BirthYear = "31.5BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Black, EyeColor = EyeColors.Brown, HomeworldId = 10 },
+                new Character { Id = 1, Name = "Luke Skywalker", Gender = Genders.Male, Height = 172, Weight = 77, BirthYear = "19BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Blond, EyeColor = EyeColors.Blue, HomeworldId = 1, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 2, Name = "C-3PO", Height = 167, Weight = 75, BirthYear = "112BBY", SkinColor = SkinColors.Gold, EyeColor = EyeColors.Yellow, HomeworldId = 1, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 3, Name = "R2-D2", Height = 96, Weight = 32, BirthYear = "33BBY", SkinColor = SkinColors.Blue, EyeColor = EyeColors.Red, HomeworldId = 8, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 4, Name = "Darth Vader", Gender = Genders.Male, Height = 202, Weight = 136, BirthYear = "41.9BBY", SkinColor = SkinColors.White, HairColor = HairColors.None, EyeColor = EyeColors.Yellow, HomeworldId = 1, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 5, Name = "Leia Organa", Gender = Genders.Female, Height = 150, Weight = 49, BirthYear = "19BBY", SkinColor = SkinColors.Light, HairColor = HairColors.Brown, EyeColor = EyeColors.Brown, HomeworldId = 2, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 6, Name = "Owen Lars", Gender = Genders.Male, Height = 178, Weight = 120, BirthYear = "52BBY", SkinColor = SkinColors.Light, HairColor = HairColors.Grey, EyeColor = EyeColors.Blue, HomeworldId = 1, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 7, Name = "Beru Whitesun Lars", Gender = Genders.Female, Height = 165, Weight = 75, BirthYear = "47BBY", SkinColor = SkinColors.Light, HairColor = HairColors.Brown, EyeColor = EyeColors.Blue, HomeworldId = 1, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 8, Name = "R5-D4", Height = 97, Weight = 32, BirthYear = "Unknown", SkinColor = SkinColors.Red, EyeColor = EyeColors.Red, HomeworldId = 1, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 9, Name = "Biggs Darklighter", Gender = Genders.Male, Height = 183, Weight = 84, BirthYear = "24BBY", SkinColor = SkinColors.Light, HairColor = HairColors.Black, EyeColor = EyeColors.Brown, HomeworldId = 1, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 10, Name = "Obi-Wan Kenobi", Gender = Genders.Male, Height = 182, Weight = 77, BirthYear = "57BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Auburn, EyeColor = EyeColors.Blue, HomeworldId = 20, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 11, Name = "Anakin Skywalker", Gender = Genders.Male, Height = 188, Weight = 84, BirthYear = "41.9BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Brown, EyeColor = EyeColors.Blue, HomeworldId = 1, FirstAppearance = new DateTime(1999, 5, 16) },
+                new Character { Id = 12, Name = "Wilhuff Tarkin", Gender = Genders.Male, Height = 180, BirthYear = "64BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Auburn, EyeColor = EyeColors.Blue, HomeworldId = 21, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 13, Name = "Chewbacca", Gender = Genders.Male, Height = 228, Weight = 112, BirthYear = "200BBY", HairColor = HairColors.Brown, EyeColor = EyeColors.Blue, HomeworldId = 14, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 14, Name = "Han Solo", Gender = Genders.Male, Height = 180, Weight = 80, BirthYear = "29BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Brown, EyeColor = EyeColors.Brown, HomeworldId = 22, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 15, Name = "Greedo", Gender = Genders.Male, Height = 173, Weight = 74, BirthYear = "44BBY", SkinColor = SkinColors.Green, EyeColor = EyeColors.Black, HomeworldId = 23, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 16, Name = "Jabba Desilijic Tiure", Gender = Genders.Hermaphrodite, Height = 175, Weight = 1358, BirthYear = "600BBY", SkinColor = SkinColors.GreenTan, EyeColor = EyeColors.Orange, HomeworldId = 24, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 18, Name = "Wedge Antilles", Gender = Genders.Male, Height = 170, Weight = 77, BirthYear = "21BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Brown, EyeColor = EyeColors.Hazel, HomeworldId = 22, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 19, Name = "Jek Tono Porkins", Gender = Genders.Male, Height = 180, Weight = 110, BirthYear = "Unknown", SkinColor = SkinColors.Fair, HairColor = HairColors.Brown, EyeColor = EyeColors.Blue, HomeworldId = 26, FirstAppearance = new DateTime(1977, 5, 25) },
+                new Character { Id = 20, Name = "Yoda", Gender = Genders.Male, Height = 66, Weight = 17, BirthYear = "896BBY", SkinColor = SkinColors.Green, HairColor = HairColors.White, EyeColor = EyeColors.Brown, FirstAppearance = new DateTime(1980, 5, 17) },
+                new Character { Id = 21, Name = "Palpatine", Gender = Genders.Male, Height = 170, Weight = 75, BirthYear = "82BBY", SkinColor = SkinColors.Pale, HairColor = HairColors.Grey, EyeColor = EyeColors.Yellow, HomeworldId = 8, FirstAppearance = new DateTime(1980, 5, 17) },
+                new Character { Id = 22, Name = "Boba Fett", Gender = Genders.Male, Height = 183, Weight = 78, BirthYear = "31.5BBY", SkinColor = SkinColors.Fair, HairColor = HairColors.Black, EyeColor = EyeColors.Brown, HomeworldId = 10, FirstAppearance = new DateTime(1980, 5, 17) },
             };
         }
         #endregion

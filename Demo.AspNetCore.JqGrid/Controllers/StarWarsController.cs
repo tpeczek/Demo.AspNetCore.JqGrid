@@ -399,6 +399,9 @@ namespace Demo.AspNetCore.JqGrid.Controllers
                         return birthYear;
                     });
                     break;
+                case "firstappearance":
+                    sortingExpression = (character => character.FirstAppearance);
+                    break;
                 default:
                     break;
             }
