@@ -257,6 +257,9 @@ namespace Demo.AspNetCore.JqGrid.Controllers
                 case "gender":
                     searchingFilterPredicate = GetCharacterGenderPredicate(searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
                     break;
+                case "firstappearance":
+                    searchingFilterPredicate = GetCharacterFirstAppearancePredicate(searchingFilter.SearchingOperator, searchingFilter.SearchingValue);
+                    break;
             }
 
             return searchingFilterPredicate;
@@ -322,6 +325,34 @@ namespace Demo.AspNetCore.JqGrid.Controllers
             }
 
             return genderPredicate;
+        }
+
+        private Func<Character, bool> GetCharacterFirstAppearancePredicate(JqGridSearchOperators searchingOperator, string searchingValue)
+        {
+            Func<Character, bool> characterFirstAppearancePredicate = null;
+
+            DateTime characterFirstAppearance = DateTime.Parse(searchingValue);
+
+            switch (searchingOperator)
+            {
+                case JqGridSearchOperators.Eq:
+                    characterFirstAppearancePredicate = (character => character.FirstAppearance == characterFirstAppearance);
+                    break;
+                case JqGridSearchOperators.Ge:
+                    characterFirstAppearancePredicate = (character => character.FirstAppearance >= characterFirstAppearance);
+                    break;
+                case JqGridSearchOperators.Gt:
+                    characterFirstAppearancePredicate = (character => character.FirstAppearance > characterFirstAppearance);
+                    break;
+                case JqGridSearchOperators.Le:
+                    characterFirstAppearancePredicate = (character => character.FirstAppearance <= characterFirstAppearance);
+                    break;
+                case JqGridSearchOperators.Lt:
+                    characterFirstAppearancePredicate = (character => character.FirstAppearance < characterFirstAppearance);
+                    break;
+            }
+
+            return characterFirstAppearancePredicate;
         }
 
         private IQueryable<Character> SortCharacters(IQueryable<Character> charactersQueryable, string sortingDefition, JqGridSortingOrders sortingOrder)

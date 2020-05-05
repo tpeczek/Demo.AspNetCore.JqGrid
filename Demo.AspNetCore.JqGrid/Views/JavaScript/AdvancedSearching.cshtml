@@ -10,7 +10,7 @@
                 datatype: 'json',
                 mtype: 'POST',
                 cmTemplate: { align: 'center' },
-                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color' ],
+                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color', 'First Appearance' ],
                 colModel: [
                             { name: 'Name', searchoptions: { sopt: ['eq', 'ne', 'bw', 'bn', 'ew', 'en', 'cn', 'nc'] } },
                             { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter, stype: 'select', searchoptions: { sopt: ['eq', 'ne', 'nu', 'nn'], value: { 1: 'Female', 2: 'Male', 3: 'Hermaphrodite' } } },
@@ -19,7 +19,8 @@
                             { name: 'BirthYear', search: false },
                             { name: 'SkinColor', sortable: false, formatter: demo.jqGrid.character.skinColorFormatter, search: false },
                             { name: 'HairColor', sortable: false, formatter: demo.jqGrid.character.hairColorFormatter, search: false },
-                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter, search: false }
+                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter, search: false },
+                            { name: 'FirstAppearance', align: 'center', searchoptions: { sopt: [ 'eq', 'lt', 'le', 'gt', 'ge' ], dataInit: function(element) { element.type = 'date'; } }, formatter: 'date', formatoptions: { srcformat: 'ISO8601Long' } }
                           ],
                 caption: 'StarWars Characters',
                 footerrow: true,
