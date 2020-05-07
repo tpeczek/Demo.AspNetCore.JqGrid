@@ -60,7 +60,7 @@ namespace Demo.AspNetCore.JqGrid.Model
 
         [Display(Name = "First Appearance")]
         [JqGridColumnLayout(Alignment = JqGridAlignments.Center)]
-        [JqGridColumnFormatter(JqGridPredefinedFormatters.Date, SourceFormat = "ISO8601Long")]
+        [JqGridColumnFormatter(JqGridPredefinedFormatters.Date, SourceFormat = "ISO8601Long", OutputFormat = "ISO8601Short")]
         [JqGridColumnSearchable(SearchType = JqGridColumnSearchTypes.Date, SearchOperators = JqGridSearchOperators.Eq | JqGridSearchOperators.Ge | JqGridSearchOperators.Gt | JqGridSearchOperators.Le | JqGridSearchOperators.Lt)]
         public DateTime FirstAppearance { get; set; }
     }

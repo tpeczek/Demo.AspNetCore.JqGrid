@@ -10,7 +10,7 @@
                 datatype: 'json',
                 mtype: 'POST',
                 cmTemplate: { align: 'center' },
-                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color' ],
+                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color', 'First Appearance' ],
                 colModel: [
                             { name: 'Name', editable: true, editrules: { required: true } },
                             { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter, editable: true, edittype: 'select', editoptions: { value: { 1: 'Female', 2: 'Male', 3: 'Hermaphrodite' } } },
@@ -19,7 +19,8 @@
                             { name: 'BirthYear', editable: true, editrules: { required: true } },
                             { name: 'SkinColor', sortable: false, formatter: demo.jqGrid.character.skinColorFormatter, editable: true, edittype: 'select', editoptions: { value: { 1: 'Light', 2: 'Fair', 3: 'Pale', 4: 'White', 5: 'Gold', 6: 'Blue', 7: 'Red', 8: 'Green', 9: 'Green-Tan' } } },
                             { name: 'HairColor', sortable: false, formatter: demo.jqGrid.character.hairColorFormatter, editable: true, edittype: 'select', editoptions: { value: { 0: 'None', 1: 'Blue', 2: 'Brown', 3: 'Black', 4: 'Auburn', 5: 'Grey', 6: 'White' } } },
-                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter, editable: true, edittype: 'select', editoptions: { value: { 1: 'Blue', 2: 'Brown', 3: 'Yellow', 4: 'Hazel', 5: 'Red', 6: 'Black', 7: 'Orange' } }, editrules: { required: true } }
+                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter, editable: true, edittype: 'select', editoptions: { value: { 1: 'Blue', 2: 'Brown', 3: 'Yellow', 4: 'Hazel', 5: 'Red', 6: 'Black', 7: 'Orange' } }, editrules: { required: true } },
+                            { name: 'FirstAppearance', align: 'center', editable: true, editoptions : { dataInit: function(element) { element.type = 'date'; } }, formatter: 'date', formatoptions: { srcformat: 'ISO8601Long', newformat: 'ISO8601Short' } }
                           ],
                 caption: 'StarWars Characters',
                 footerrow: true,

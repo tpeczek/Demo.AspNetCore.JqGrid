@@ -12,7 +12,7 @@
                 cellEdit: true,
                 cellurl: '@Url.Action("UpdateCharacterProperty", "StarWars")',
                 cmTemplate: { align: 'center' },
-                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color' ],
+                colNames: [ 'Name', 'Gender', 'Height', 'Weight', 'Birth Year', 'Skin Color', 'Hair Color', 'Eye Color', 'First Appearance' ],
                 colModel: [
                             { name: 'Name', editable: true, editrules: { required: true } },
                             { name: 'Gender', sortable: false, formatter: demo.jqGrid.character.genderFormatter, editable: false },
@@ -21,7 +21,8 @@
                             { name: 'BirthYear', editable: true, editrules: { required: true } },
                             { name: 'SkinColor', sortable: false, formatter: demo.jqGrid.character.skinColorFormatter, editable: false },
                             { name: 'HairColor', sortable: false, formatter: demo.jqGrid.character.hairColorFormatter, editable: false },
-                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter, editable: false }
+                            { name: 'EyeColor', sortable: false, formatter: demo.jqGrid.character.eyeColorFormatter, editable: false },
+                            { name: 'FirstAppearance', align: 'center', editable: true, editoptions : { dataInit: function(element) { element.type = 'date'; } }, formatter: 'date', formatoptions: { srcformat: 'ISO8601Long', newformat: 'ISO8601Short' } }
                           ],
                 caption: 'StarWars Characters',
                 footerrow: true,

@@ -1,6 +1,7 @@
 ﻿using Lib.AspNetCore.Mvc.JqGrid.Core.Request.ModelBinders;
 using System;
 using System.Collections.Generic;
+using Demo.StartWars.Model;
 
 namespace Demo.AspNetCore.JqGrid.Model.ModelBinders
 {
@@ -9,10 +10,11 @@ namespace Demo.AspNetCore.JqGrid.Model.ModelBinders
         #region Fields
         private static readonly IDictionary<string, Type> _supportedCells = new Dictionary<string, Type>
         {
-            { "Name", typeof(String) },
-            { "Height", typeof(Int32) },
-            { "Weight", typeof(Nullable<Int32>) },
-            { "BirthYear", typeof(String) }
+            { nameof(Character.Name), typeof(String) },
+            { nameof(Character.Height), typeof(Int32) },
+            { nameof(Character.Weight), typeof(Nullable<Int32>) },
+            { nameof(Character.BirthYear), typeof(String) },
+            { nameof(Character.FirstAppearance), typeof(DateTime) }
         };
         #endregion
 

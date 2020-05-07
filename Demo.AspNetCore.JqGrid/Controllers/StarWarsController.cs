@@ -79,6 +79,7 @@ namespace Demo.AspNetCore.JqGrid.Controllers
                     originalCharacter.SkinColor = character.SkinColor;
                     originalCharacter.HairColor = character.HairColor;
                     originalCharacter.EyeColor = character.EyeColor;
+                    originalCharacter.FirstAppearance = character.FirstAppearance;
                 }
 
                 status = true;
@@ -104,17 +105,20 @@ namespace Demo.AspNetCore.JqGrid.Controllers
                     {
                         switch (characterProperty.CellName)
                         {
-                            case "Name":
+                            case nameof(Character.Name):
                                 character.Name = (string)characterProperty.CellValue;
                                 break;
-                            case "Height":
+                            case nameof(Character.Height):
                                 character.Height = (int)characterProperty.CellValue;
                                 break;
-                            case "Weight":
+                            case nameof(Character.Weight):
                                 character.Weight = (int?)characterProperty.CellValue;
                                 break;
-                            case "BirthYear":
+                            case nameof(Character.BirthYear):
                                 character.BirthYear = (string)characterProperty.CellValue;
+                                break;
+                            case nameof(Character.FirstAppearance):
+                                character.FirstAppearance = DateTime.Parse((string)characterProperty.CellValue);
                                 break;
                         }
 

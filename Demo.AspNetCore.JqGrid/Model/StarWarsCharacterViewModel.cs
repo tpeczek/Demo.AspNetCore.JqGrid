@@ -52,7 +52,7 @@ namespace Demo.AspNetCore.JqGrid.Model
 
         [Display(Name = "First Appearance")]
         [JqGridColumnLayout(Alignment = JqGridAlignments.Center)]
-        [JqGridColumnFormatter(JqGridPredefinedFormatters.Date, SourceFormat = "ISO8601Long")]
+        [JqGridColumnFormatter(JqGridPredefinedFormatters.Date, SourceFormat = "ISO8601Long", OutputFormat = "ISO8601Short")]
         public DateTime FirstAppearance { get; set; }
     }
 }
