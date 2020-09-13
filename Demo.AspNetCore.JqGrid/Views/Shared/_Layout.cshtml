@@ -4,8 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/jquery-ui.min.css" />
-    <link rel="stylesheet" href="~/lib/jqgrid/css/ui.jqgrid.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    @if (ViewBag.JqGrid == "free-jqgrid")
+    {
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.5.0/css/ui.jqgrid.min.css" />
+    }
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -54,19 +61,19 @@
     </div>
     <footer>
         <hr />
-        Copyright &copy; 2016 Tomasz Pęczek
+        Copyright &copy; 2016 - 2020 Tomasz Pęczek
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     @if (ViewBag.JqGrid == "free-jqgrid")
     {
-        <script src="~/lib/free-jqgrid/js/i18n/grid.locale-en.js"></script>
-        <script src="~/lib/free-jqgrid/js/jquery.jqgrid.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/i18n/grid.locale-en.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/jquery.jqgrid.min.js"></script>
     }
     else
     {
-        <script src="~/lib/jqgrid/js/i18n/grid.locale-en.js"></script>
-        <script src="~/lib/jqgrid/js/jquery.jqGrid.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.5.0/js/i18n/grid.locale-en.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/5.5.0/js/jquery.jqGrid.min.js"></script>
     }
     <script src="~/js/site.js"></script>
     @RenderSection("scripts", required: false)
